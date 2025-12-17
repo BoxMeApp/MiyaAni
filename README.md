@@ -4,6 +4,13 @@
 
 ## development
 
+### workflow
+
+- 提出需求： 用 Excalidraw 画图，然后放到 [working](docs/working) 当中
+- 大概的要求写入 Changelog.md
+- 开启分支实现功能
+- 测试然后合并
+
 ### rename
 
 采用 [rename_app](https://pub.dev/packages/rename_app) 加入到 dev
