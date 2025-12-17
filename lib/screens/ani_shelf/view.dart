@@ -55,6 +55,8 @@ class AniSearch extends StatefulWidget {
 class _AniSearchState extends State<AniSearch> {
   final SearchController _searchController = SearchController();
 
+  // 因为 SearchBar 才是核心，所以它作为最终的 child
+  // 其他的都是装饰，提示也是装饰，所以放到 via 里面
   @override
   Widget build(BuildContext context) =>
       via((Widget c) => SliverToBoxAdapter(child: c))
