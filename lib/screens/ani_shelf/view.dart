@@ -29,13 +29,13 @@ import 'cms.dart';
 class AniSearch extends StatefulWidget {
   const AniSearch({
     super.key,
-    this.onChanged,
+    this.search,
     this.debounceTime,
     required this.getSuggestions,
   });
 
-  @Preview(name: 'Simple AniSearch', size: Size(400, 100))
-  static Widget simple() => Viewport(
+  @Preview(name: 'AniSearch With Suggestions', size: Size(400, 100))
+  static Widget hasSuggestions() => Viewport(
     offset: .zero(),
     slivers: [
       AniSearch(
@@ -44,9 +44,13 @@ class AniSearch extends StatefulWidget {
     ],
   );
 
-  final ValueChanged<String>? onChanged;
+  @Preview(name: 'AniSearch Without Suggestions', size: Size(400, 100))
+  static Widget noSuggestions() =>
+      Viewport(offset: .zero(), slivers: [AniSearch(getSuggestions: null)]);
+
+  final ValueChanged<String>? search;
   final Duration? debounceTime;
-  final List<String> Function(String) getSuggestions;
+  final List<String> Function(String)? getSuggestions;
 
   @override
   State<AniSearch> createState() => _AniSearchState();
@@ -55,6 +59,8 @@ class AniSearch extends StatefulWidget {
 class _AniSearchState extends State<AniSearch> {
   final SearchController _searchController = SearchController();
 
+  bool get isShowSuggestions => widget.getSuggestions != null;
+
   // 因为 SearchBar 才是核心，所以它作为最终的 child
   // 其他的都是装饰，提示也是装饰，所以放到 via 里面
   @override
@@ -62,26 +68,31 @@ class _AniSearchState extends State<AniSearch> {
       via((Widget c) => SliverToBoxAdapter(child: c))
           .via((Widget c) => Padding(padding: const .all(16.0), child: c))
           .via(
-            (Widget c) => SearchAnchor(
-              searchController: _searchController,
-              viewOnSubmitted: (value) {
-                widget.onChanged?.call(value);
-                _searchController.closeView(value);
-              },
-              suggestionsBuilder: (context, controller) => widget
-                  .getSuggestions(controller.text)
-                  .map(
-                    (suggestion) => ListTile(
-                      title: Text(suggestion),
-                      onTap: () {
-                        controller.closeView(suggestion);
-                        widget.onChanged?.call(suggestion);
-                      },
+            (Widget c) => isShowSuggestions
+                ? SearchAnchor(
+                    searchController: _searchController,
+                    viewOnSubmitted: (value) {
+                      widget.search?.call(value);
+                      _searchController.closeView(value);
+                    },
+                    suggestionsBuilder: (context, controller) => widget
+                        .getSuggestions!
+                        .call(controller.text)
+                        .map(
+                          (suggestion) => ListTile(
+                            title: Text(suggestion),
+                            onTap: () {
+                              controller.closeView(suggestion);
+                              widget.search?.call(suggestion);
+                            },
+                          ),
+                        ),
+                    viewShape: RoundedRectangleBorder(
+                      borderRadius: .circular(12),
                     ),
-                  ),
-              viewShape: RoundedRectangleBorder(borderRadius: .circular(12)),
-              builder: (context, controller) => c,
-            ),
+                    builder: (context, controller) => c,
+                  )
+                : c,
           ) >
       SearchBar(
         shape: WidgetStatePropertyAll(
@@ -89,8 +100,16 @@ class _AniSearchState extends State<AniSearch> {
         ),
         controller: _searchController,
         hintText: 'Search...',
-        onTap: () => _searchController.openView(),
-        onChanged: (_) => _searchController.openView(),
+        onTap: () {
+          if (isShowSuggestions) {
+            _searchController.openView();
+          }
+        },
+        onChanged: (_) {
+          if (isShowSuggestions) {
+            _searchController.openView();
+          }
+        },
         leading: const Icon(Icons.search),
       );
 
@@ -98,5 +117,14 @@ class _AniSearchState extends State<AniSearch> {
   void dispose() {
     _searchController.dispose();
     super.dispose();
+  }
+}
+
+class ShelfViewer extends StatelessWidget {
+  const ShelfViewer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container();
   }
 }
