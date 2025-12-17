@@ -27,29 +27,17 @@ import 'cms.dart';
 // }
 
 class AniSearch extends StatefulWidget {
-  const AniSearch({
-    super.key,
-    this.search,
-    this.debounceTime,
-    required this.getSuggestions,
-  });
+  const AniSearch({super.key, this.onSubmit, this.getSuggestions});
 
   @Preview(name: 'AniSearch With Suggestions', size: Size(400, 100))
-  static Widget hasSuggestions() => Viewport(
-    offset: .zero(),
-    slivers: [
-      AniSearch(
-        getSuggestions: (query) => const ["Suggestion 1", "Suggestion 2"],
-      ),
-    ],
+  static Widget hasSuggestions() => AniSearch(
+    getSuggestions: (query) => const ["Suggestion 1", "Suggestion 2"],
   );
 
   @Preview(name: 'AniSearch Without Suggestions', size: Size(400, 100))
-  static Widget noSuggestions() =>
-      Viewport(offset: .zero(), slivers: [AniSearch(getSuggestions: null)]);
+  static Widget noSuggestions() => AniSearch();
 
-  final ValueChanged<String>? search;
-  final Duration? debounceTime;
+  final ValueChanged<String>? onSubmit;
   final List<String> Function(String)? getSuggestions;
 
   @override
@@ -62,38 +50,34 @@ class _AniSearchState extends State<AniSearch> {
   bool get isShowSuggestions => widget.getSuggestions != null;
 
   // 因为 SearchBar 才是核心，所以它作为最终的 child
-  // 其他的都是装饰，提示也是装饰，所以放到 via 里面
+  // 其他的都是装饰，提示也是装饰，所以放到 decorator 里面
   @override
   Widget build(BuildContext context) =>
-      via((Widget c) => SliverToBoxAdapter(child: c))
-          .via((Widget c) => Padding(padding: const .all(16.0), child: c))
-          .via(
-            (Widget c) => isShowSuggestions
-                ? SearchAnchor(
-                    searchController: _searchController,
-                    viewOnSubmitted: (value) {
-                      widget.search?.call(value);
-                      _searchController.closeView(value);
-                    },
-                    suggestionsBuilder: (context, controller) => widget
-                        .getSuggestions!
-                        .call(controller.text)
-                        .map(
-                          (suggestion) => ListTile(
-                            title: Text(suggestion),
-                            onTap: () {
-                              controller.closeView(suggestion);
-                              widget.search?.call(suggestion);
-                            },
-                          ),
-                        ),
-                    viewShape: RoundedRectangleBorder(
-                      borderRadius: .circular(12),
+      via((Widget c) => Padding(padding: const .all(16.0), child: c)).via(
+        (Widget c) => isShowSuggestions
+            ? SearchAnchor(
+                searchController: _searchController,
+                viewOnSubmitted: (value) {
+                  widget.onSubmit?.call(value);
+                  _searchController.closeView(value);
+                },
+                suggestionsBuilder: (context, controller) => widget
+                    .getSuggestions!
+                    .call(controller.text)
+                    .map(
+                      (suggestion) => ListTile(
+                        title: Text(suggestion),
+                        onTap: () {
+                          controller.closeView(suggestion);
+                          widget.onSubmit?.call(suggestion);
+                        },
+                      ),
                     ),
-                    builder: (context, controller) => c,
-                  )
-                : c,
-          ) >
+                viewShape: RoundedRectangleBorder(borderRadius: .circular(12)),
+                builder: (context, controller) => c,
+              )
+            : c,
+      ) >
       SearchBar(
         shape: WidgetStatePropertyAll(
           RoundedRectangleBorder(borderRadius: .circular(12)),
@@ -120,11 +104,34 @@ class _AniSearchState extends State<AniSearch> {
   }
 }
 
-class ShelfViewer extends StatelessWidget {
-  const ShelfViewer({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
+@Preview(name: "shelf viewer")
+Widget exampleBoxShelf() {
+  final controller = PagingController<int, ColoredBox>(
+    getNextPageKey: (state) =>
+        state.lastPageIsEmpty ? null : state.nextIntPageKey,
+    fetchPage: (pageKey) => Future.delayed(
+      const Duration(milliseconds: 500),
+      () => .generate(
+        21,
+        (index) => ColoredBox(
+          color: Colors
+              .primaries[(pageKey * 21 + index) % Colors.primaries.length],
+          child: SizedBox(width: 100, height: 100),
+        ),
+      ),
+    ),
+  );
+  return PagingListener(
+    controller: controller,
+    builder: (context, state, fetchNextPage) => PagedGridView<int, ColoredBox>(
+      state: state,
+      fetchNextPage: fetchNextPage,
+      builderDelegate: .new(itemBuilder: (context, item, index) => item),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 3,
+        mainAxisSpacing: 10,
+        crossAxisSpacing: 10,
+      ),
+    ),
+  );
 }
