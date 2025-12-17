@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widget_previews.dart';
+
+@Preview(name: 'My Sample Text')
+Widget mySampleText() {
+  return const Text('Hello, World!');
+}
 
 void main() {
   runApp(const MyApp());
@@ -60,5 +66,15 @@ class _MyHomePageState extends State<MyHomePage> {
         child: const Icon(Icons.add),
       ),
     );
+  }
+}
+
+class ScrollShelf extends StatelessWidget {
+  @Preview(name: 'Shelf')
+  const ScrollShelf({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container();
   }
 }

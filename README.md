@@ -41,6 +41,8 @@ y = A \cdot s
 
 $`f`$ 是逻辑，$`y`$ 是 UI 描述，详细的案例见 [cms](https://github.com/BoxMeApp/cms)。$`y`$ 采用 [flutter_bloc](https://pub.dev/packages/flutter_bloc)
 
+约定用 S 表示状态，A 表示事件或者动作，cms 表示状态转移函数
+
 eg. TODO
 
 ### UI compose
@@ -65,3 +67,9 @@ via((Widget c) => Center(child: c))
 .via((c) => Card(elevation: 4, child: c,))
 > Text('Hello')
 ```
+
+### tools
+
+- [Flutter Widget Previewer](https://docs.flutter.dev/tools/widget-previewer): 方便预览 widget
+- [Flutter Property Editor](https://docs.flutter.dev/tools/property-editor): 属性编辑
+- [inspector](https://docs.flutter.dev/tools/devtools/inspector): 查看 UI 实际布局
