@@ -1,6 +1,12 @@
 # MiyaAni
 
-<p align="center">Miya ❤️ ni</p>
+<p align="center">Miya ❤️ 你</p>
+
+## features
+
+- 支持 bt 下载
+- 播放器
+- 记录功能
 
 ## development
 
