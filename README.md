@@ -1,16 +1,19 @@
-# miya_ani
+# MiyaAni
 
-A new Flutter project.
+<p align="center">Miya ❤️ ni</p>
 
-## Getting Started
+## development
 
-This project is a starting point for a Flutter application.
+### rename
 
-A few resources to get you started if this is your first Flutter project:
+采用 [rename_app](https://pub.dev/packages/rename_app) 加入到 dev
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+```bash
+flutter pub add dev:rename_app
+```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+设置 app 名字：
+
+```bash
+dart run rename_app:main all="MiyaAni"
+```
