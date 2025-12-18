@@ -14,10 +14,11 @@
 
 - 提出需求： 用 Excalidraw 画图，然后放到 [working](docs/working) 当中
 - 大概的要求写入 Changelog.md
+- 主题讨论放到 Issues 里面
 - 开启分支实现功能
   - 先实现 mini 功能，用方块代替
   - 建立相应的方程放到 PR 里面
-- 测试然后合并
+- 主要功能应该有 preview，边界条件则需要测试
 
 ### rename
 
