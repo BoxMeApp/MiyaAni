@@ -14,63 +14,45 @@ sealed class A with _$A {
   const factory A.search(String query) = Search;
 }
 
-final class S<T> extends PagingStateBase<int, T> {
-  final String? tag;
-  S({
-    super.pages,
-    super.keys,
-    super.error,
-    super.hasNextPage,
-    super.isLoading,
-    this.tag,
-  });
-
-  S.zero() : tag = null, super();
-
-  @override
-  S<T> copyWith({
-    Defaulted<List<List<T>>?>? pages = const Omit(),
-    Defaulted<List<int>?>? keys = const Omit(),
-    Defaulted<Object?>? error = const Omit(),
-    Defaulted<bool>? hasNextPage = const Omit(),
-    Defaulted<bool>? isLoading = const Omit(),
-    Defaulted<String?>? tag = const Omit(),
-  }) => S<T>(
-    pages: pages is Omit ? this.pages : pages as List<List<T>>?,
-    keys: keys is Omit ? this.keys : keys as List<int>?,
-    error: error is Omit ? this.error : error,
-    hasNextPage: hasNextPage is Omit ? this.hasNextPage : hasNextPage as bool,
-    isLoading: isLoading is Omit ? this.isLoading : isLoading as bool,
-    tag: tag is Omit ? this.tag : tag as String?,
-  );
+@freezed
+abstract class S<T> with _$S<T> {
+  factory S.zero() => S(pages: .new());
+  const factory S({required PagingState<int, T> pages, String? tag}) = _S<T>;
 }
 
 class M<T> extends Cms<S<T>, A> {
-  final Future<List<T>> Function(int pageKey, String? search) _fetchFn;
+  final Future<List<T>> Function(int pageKey, String? query) _fetch;
 
-  M(this._fetchFn) : super(.zero());
+  M(this._fetch) : super(.zero());
   @override
   Future<S<T>?> kernel(S<T> s, A a) async => switch (a) {
     // dart format off
     Fetch   _ =>  () {
-                    if (s.isLoading || !s.hasNextPage) return null;
+                    if (s.pages.isLoading || !s.pages.hasNextPage) return null;
 
-                    final page = s.lastPageIsEmpty ? null : s.nextIntPageKey;
+                    final page = s.pages.lastPageIsEmpty 
+                                ? null 
+                                : s.pages.nextIntPageKey;
                     if (page == null) {
-                      return s.copyWith(hasNextPage: false);
+                      return s.copyWith(pages: s.pages.copyWith(hasNextPage: false));
                     }
                     add(.$fetch(page)); // 真正的 fetch
-                    return s.copyWith(isLoading: true); // 给外部观测
+                    return s.copyWith(pages: s.pages.copyWith(isLoading: true)); // 给外部观测
                   }(),
-    _$Fetch a =>  _fetchFn(a.page, s.tag).then(
+    _$Fetch a =>  _fetch(a.page, s.tag).then(
                     (items) => s.copyWith(
-                      isLoading: false,
-                      hasNextPage: items.isNotEmpty,
-                      pages: [...?state.pages, items],
-                      keys: [...?state.keys, a.page],
+                      pages: s.pages.copyWith(
+                        isLoading: false,
+                        hasNextPage: items.isNotEmpty,
+                        pages: [...?s.pages.pages, items],
+                      keys: [...?s.pages.keys, a.page],
+                      )
                     ),
-                    onError: (error) => s.copyWith(isLoading: false, error: error),
+                    onError: (error) => s.copyWith(
+                      pages: s.pages.copyWith(isLoading: false, error: error)
+                    ),
                   ),
+
     _         =>  undefined(s, a),
     // dart format on
   };
