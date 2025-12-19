@@ -3,7 +3,17 @@
 part 'subject.freezed.dart';
 part 'subject.g.dart';
 
-@JsonEnum()
+enum SubjectType {
+  book(1),
+  anime(2),
+  music(3),
+  game(4),
+  realWorld(6);
+
+  const SubjectType(this.code);
+  final int code;
+}
+
 enum ImageType {
   large,
   common,
