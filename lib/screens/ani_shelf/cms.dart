@@ -10,8 +10,6 @@ part 'cms.freezed.dart';
 )
 sealed class A with _$A {
   const factory A.fetch() = _Fetch;
-  // 设计不一致导致的
-  // see: https://github.com/BoxMeApp/MiyaAni/issues/4
   const factory A._fetch$(int page) = _Fetch$;
   const factory A.search(String query) = _Search;
   const factory A.refresh() = _Refresh;
