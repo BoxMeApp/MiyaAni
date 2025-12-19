@@ -6,16 +6,8 @@ import 'subject.dart';
 
 class SubjectRepository {
   static const String baseUrl = 'https://api.bgm.tv/';
-  static const String userAgent = 'BoxMeApp/MiyaApi/1.0.0 (Flutter) (https://github.com/BoxMeApp/MiyaAni)';
-
-  Future<String> _getData(String endpoint) async {
-    final response = await http.get(Uri.parse(baseUrl + endpoint));
-    if (response.statusCode == 200) {
-      return response.body;
-    } else {
-      throw Exception('Failed to load data');
-    }
-  }
+  static const String userAgent =
+      'BoxMeApp/MiyaApi/1.0.0 (Flutter) (https://github.com/BoxMeApp/MiyaAni)';
 
   /// 获取番剧时间表
   Future<List<CalendarItem>> getCalendar() async {
@@ -28,25 +20,21 @@ class SubjectRepository {
   Future<List<Subject>> searchSubjects(
     String keyword,
     int limit,
-    int offset,
-    {bool nsfw = false,}
-  ) async {
+    int offset, {
+    bool nsfw = false,
+  }) async {
     final uri = Uri.parse('${baseUrl}v0/search/subjects');
     final requestbody = jsonEncode(<String, dynamic>{
       'keyword': keyword,
       'sort': 'rank',
       'filter': {
-        'type': [2],
-        'nsfw': nsfw
+        'type': [SubjectType.anime.code],
+        'nsfw': nsfw,
       },
-      });
+    });
     final response = await http.post(
       uri,
-      headers: {
-        'User-Agent': userAgent,
-        'accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
+      headers: _buildHeaders(),
       body: requestbody,
       encoding: Encoding.getByName('utf-8'),
     );
@@ -64,6 +52,28 @@ class SubjectRepository {
         throw Exception('$title: $detail');
       default:
         throw Exception('Failed to search subjects: ${response.statusCode}');
+    }
+  }
+
+  /// 构建请求头
+  Map<String, String> _buildHeaders() {
+    return {
+      'User-Agent': userAgent,
+      'accept': 'application/json',
+      'Content-Type': 'application/json',
+    };
+  }
+
+  /// 发送GET请求并获取响应数据
+  Future<String> _getData(String endpoint) async {
+    final response = await http.get(
+      Uri.parse(baseUrl + endpoint),
+      headers: _buildHeaders(),
+    );
+    if (response.statusCode == 200) {
+      return response.body;
+    } else {
+      throw Exception('Failed to load data');
     }
   }
 }
