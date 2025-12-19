@@ -171,11 +171,23 @@ class AniShelfViewer<T> extends StatelessWidget {
           builderDelegate: .new(
             itemBuilder: (context, item, index) => builder(item),
           ),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            mainAxisSpacing: 10,
-            crossAxisSpacing: 10,
-          ),
+          gridDelegate: isMobile(context)
+              ? const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 10,
+                  crossAxisSpacing: 10,
+                )
+              : const SliverGridDelegateWithMaxCrossAxisExtent(
+                  maxCrossAxisExtent: 300,
+                  childAspectRatio: 1 / 1.2,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                ),
         ),
       );
 }
+
+bool isMobile(BuildContext context) => switch (Theme.of(context).platform) {
+  .iOS || .android || .fuchsia => true,
+  .macOS || .linux || .windows => false,
+};
