@@ -18,6 +18,7 @@
 - 开启分支实现功能
   - 先实现 mini 功能，用方块代替
   - 建立相应的方程放到 PR 里面
+  - 用 MP4/Gif 录制功能 (OBS studio 录制 + clipchamp 编辑压缩) 放到 PR 里面
 - 主要功能应该有 preview，边界条件则需要测试
 
 ### rename

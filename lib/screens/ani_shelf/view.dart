@@ -112,66 +112,41 @@ class AniSearch extends StatefulWidget {
 class _AniSearchState extends State<AniSearch> {
   final SearchController _searchController = SearchController();
 
-  // 因为 SearchBar 才是核心，所以它作为最终的 child
-  // 其他的都是装饰，提示也是装饰，所以放到 decorator 里面
   @override
   Widget build(BuildContext context) {
-    return via((Widget c) => Padding(padding: const .all(16.0), child: c)).via(
-          (Widget c) => widget.showSearchPage
-              ? c
-              : SearchAnchor(
-                  searchController: _searchController,
-                  viewOnSubmitted: (value) {
-                    widget.onSubmit?.call(value);
-                    _searchController.closeView(value);
-                  },
-                  suggestionsBuilder: (context, controller) => widget
-                      .getSuggestions(controller.text)
-                      .then(
-                        (items) => items
-                            .map(
-                              (e) => ListTile(
-                                title: Text(e),
-                                onTap: () {
-                                  controller.text = e;
-                                  widget.onSubmit?.call(e);
-                                  _searchController.closeView(e);
-                                },
-                              ),
-                            )
-                            .toList(),
-                      ),
-                  viewShape: RoundedRectangleBorder(
-                    borderRadius: .circular(12),
-                  ),
-                  builder: (context, controller) => c,
-                ),
-        ) >
-        SearchBar(
-          shape: WidgetStatePropertyAll(
+    return via((Widget c) => Padding(padding: const .all(16.0), child: c)) >
+        SearchAnchor.bar(
+          barShape: WidgetStatePropertyAll(
             RoundedRectangleBorder(borderRadius: .circular(12)),
           ),
-          controller: _searchController,
-          hintText: 'Search...',
-          onTap: widget.showSearchPage
-              ? () async {
-                  final result = await showSearch<String>(
-                    context: context,
-                    delegate: _SearchPage(
-                      getSuggestions: widget.getSuggestions,
-                    ),
-                  );
-                  if (result != null && result.isNotEmpty) {
-                    widget.onSubmit?.call(result);
-                  }
-                }
-              : () => _searchController.openView(),
-          onChanged: widget.showSearchPage
-              ? null
-              : (_) {
-                  _searchController.openView();
-                },
-          leading: const Icon(Icons.search),
+          barHintText: 'Search...',
+          barLeading: const Icon(Icons.search),
+          viewShape: RoundedRectangleBorder(borderRadius: .circular(12)),
+          searchController: _searchController,
+          onSubmitted: (value) {
+            widget.onSubmit?.call(value);
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              FocusScope.of(context).unfocus();
+            });
+            _searchController.closeView(value);
+          },
+          suggestionsBuilder: (context, controller) => widget
+              .getSuggestions(controller.text)
+              .then(
+                (items) => items
+                    .map(
+                      (e) => ListTile(
+                        title: Text(e),
+                        onTap: () {
+                          controller.text = e;
+                          widget.onSubmit?.call(e);
+                          _searchController.closeView(e);
+                          FocusScope.of(context).unfocus();
+                        },
+                      ),
+                    )
+                    .toList(),
+              ),
         );
   }
 
@@ -203,52 +178,4 @@ class AniShelfViewer<T> extends StatelessWidget {
           ),
         ),
       );
-}
-
-class _SearchPage extends SearchDelegate<String> {
-  final Future<List<String>> Function(String? query) getSuggestions;
-
-  _SearchPage({required this.getSuggestions});
-
-  @override
-  List<Widget>? buildActions(BuildContext context) => [
-    // TODO： 语音模块，AI 模块
-    if (query.isNotEmpty)
-      IconButton(icon: const Icon(Icons.clear), onPressed: () => query = ''),
-  ];
-
-  @override
-  Widget buildLeading(BuildContext context) => IconButton(
-    icon: const Icon(Icons.arrow_back),
-    onPressed: () => close(context, ''),
-  );
-
-  @override
-  Widget buildResults(BuildContext context) {
-    close(context, query);
-    return Container();
-  }
-
-  @override
-  Widget buildSuggestions(BuildContext context) {
-    return FutureBuilder<List<String>>(
-      future: getSuggestions(query),
-      builder: (context, snapshot) {
-        final suggestions = snapshot.data ?? [];
-        return ListView.builder(
-          itemCount: suggestions.length,
-          itemBuilder: (context, index) {
-            final suggestion = suggestions[index];
-            return ListTile(
-              title: Text(suggestion),
-              onTap: () {
-                query = suggestion;
-                close(context, suggestion);
-              },
-            );
-          },
-        );
-      },
-    );
-  }
 }
