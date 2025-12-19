@@ -45,14 +45,17 @@ class M<T> extends Cms<S<T>, A> {
                         isLoading: false,
                         hasNextPage: items.isNotEmpty,
                         pages: [...?s.pages.pages, items],
-                      keys: [...?s.pages.keys, a.page],
+                        keys: [...?s.pages.keys, a.page],
                       )
                     ),
                     onError: (error) => s.copyWith(
                       pages: s.pages.copyWith(isLoading: false, error: error)
                     ),
                   ),
-
+    Search  a =>  () {
+                    add(.fetch());
+                    return S<T>.zero().copyWith(tag: a.query);
+                  }(),
     _         =>  undefined(s, a),
     // dart format on
   };

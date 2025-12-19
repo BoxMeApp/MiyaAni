@@ -11,34 +11,57 @@ class AniShelfPage {
   static Widget test() => $coloredBoxShelf();
 
   @Preview(name: 'ColoredBox Shelf', size: Size(400, 300))
-  static Widget $coloredBoxShelf() =>
-      // controller
-      via(
-        (Widget c) => BlocProvider(
-          create: (context) => M<Color>(
-            (pageKey, _) => Future.delayed(
-              const Duration(milliseconds: 500),
-              () => .generate(
-                21,
-                (index) =>
-                    Colors.primaries[math.Random().nextInt(
-                      Colors.primaries.length,
-                    )],
-              ),
-            ),
+  static Widget $coloredBoxShelf() {
+    final repo = FakeRepo();
+    // controller
+    return via(
+          (Widget c) => BlocProvider(
+            create: (context) => M<int>(repo.fakeFetch),
+            child: c,
           ),
-          child: c,
-        ),
-      ) >
-      // view
-      $AniShelfPage<Color>(
-        builder: (item) =>
-            ColoredBox(color: item, child: SizedBox(height: 100)),
-        getSuggestions: (query) => Future.delayed(
-          const Duration(milliseconds: 100),
-          () => ["Red", "Green"],
-        ),
-      );
+        ) >
+        // view
+        $AniShelfPage<int>(
+          builder: (item) =>
+              via((Widget c) => Card(child: c)) >
+              Text(
+                item.toString(),
+                style: const TextStyle(fontSize: 24),
+                textAlign: .center,
+              ),
+          getSuggestions: (query) => repo.fakeSuggestions(query),
+        );
+  }
+}
+
+class FakeRepo {
+  final database = List.generate(100, (index) => index);
+
+  Future<List<String>> fakeSuggestions(String? query, [int topK = 10]) async {
+    final history = [10, 22, 50].map((e) => e.toString()).toList();
+
+    // 默认返回历史
+    if (query == null || query.isEmpty) {
+      return history.sublist(math.max(0, history.length - topK)).toList();
+    }
+    // 简单的包含匹配
+    final results = database
+        .map((e) => e.toString())
+        .where((e) => e.contains(query))
+        .toList();
+    return results.sublist(0, math.min(results.length, topK)).toList();
+  }
+
+  Future<List<int>> fakeFetch(int pageKey, String? query) async {
+    final relative = () {
+      if (query == null || query.isEmpty) {
+        return database;
+      }
+      return database.where((e) => e.toString().contains(query)).toList();
+    }();
+    await Future.delayed(const Duration(seconds: 1));
+    return relative.skip((pageKey - 1) * 20).take(20).toList();
+  }
 }
 
 class $AniShelfPage<T> extends StatelessWidget {
@@ -56,11 +79,13 @@ class $AniShelfPage<T> extends StatelessWidget {
         (Widget c) => SafeArea(child: c),
       ).via((List<Widget> c) => CustomScrollView(slivers: c)) >
       [
-        SliverToBoxAdapter(child: AniSearch(getSuggestions: getSuggestions)),
-        SliverPadding(
-          padding: const .all(8.0),
-          sliver: AniShelfViewer<T>(builder: builder),
+        SliverToBoxAdapter(
+          child: AniSearch(
+            getSuggestions: getSuggestions,
+            onSubmit: (v) => context.read<M<T>>().add(.search(v)),
+          ),
         ),
+        AniShelfViewer<T>(builder: builder),
       ];
 }
 
