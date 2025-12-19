@@ -75,21 +75,25 @@ class $AniShelfPage<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) =>
-      via(
-        (Widget c) => SafeArea(child: c),
-      ).via((List<Widget> c) => CustomScrollView(slivers: c)) >
-      [
-        SliverToBoxAdapter(
-          child: AniSearch(
-            getSuggestions: getSuggestions,
-            onSubmit: (v) => context.read<M<T>>().add(.search(v)),
-          ),
+      via((Widget c) => SafeArea(child: c)) >
+      Scaffold(
+        appBar: AniSearch(
+          getSuggestions: getSuggestions,
+          onSubmit: (v) => context.read<M<T>>().add(.search(v)),
         ),
-        AniShelfViewer<T>(builder: builder),
-      ];
+        body:
+            via(
+              (Widget c) => RefreshIndicator(
+                onRefresh: () async =>
+                    context.read<M<T>>().add(const .refresh()),
+                child: c,
+              ),
+            ).via((List<Widget> c) => CustomScrollView(slivers: c)) >
+            [AniShelfViewer<T>(builder: builder)],
+      );
 }
 
-class AniSearch extends StatefulWidget {
+class AniSearch extends StatefulWidget implements PreferredSizeWidget {
   const AniSearch({
     super.key,
     this.onSubmit,
@@ -107,6 +111,8 @@ class AniSearch extends StatefulWidget {
 
   @override
   State<AniSearch> createState() => _AniSearchState();
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
 
 class _AniSearchState extends State<AniSearch> {
@@ -114,7 +120,7 @@ class _AniSearchState extends State<AniSearch> {
 
   @override
   Widget build(BuildContext context) {
-    return via((Widget c) => Padding(padding: const .all(16.0), child: c)) >
+    return via((Widget c) => Padding(padding: const .all(5.0), child: c)) >
         SearchAnchor.bar(
           barShape: WidgetStatePropertyAll(
             RoundedRectangleBorder(borderRadius: .circular(12)),

@@ -41,147 +41,12 @@ $ACopyWith(A _, $Res Function(A) __);
 }
 
 
-/// Adds pattern-matching-related methods to [A].
-extension APatterns on A {
-/// A variant of `map` that fallback to returning `orElse`.
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case final Subclass value:
-///     return ...;
-///   case _:
-///     return orElse();
-/// }
-/// ```
-
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( Fetch value)?  fetch,TResult Function( _$Fetch value)?  $fetch,TResult Function( Search value)?  search,required TResult orElse(),}){
-final _that = this;
-switch (_that) {
-case Fetch() when fetch != null:
-return fetch(_that);case _$Fetch() when $fetch != null:
-return $fetch(_that);case Search() when search != null:
-return search(_that);case _:
-  return orElse();
-
-}
-}
-/// A `switch`-like method, using callbacks.
-///
-/// Callbacks receives the raw object, upcasted.
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case final Subclass value:
-///     return ...;
-///   case final Subclass2 value:
-///     return ...;
-/// }
-/// ```
-
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( Fetch value)  fetch,required TResult Function( _$Fetch value)  $fetch,required TResult Function( Search value)  search,}){
-final _that = this;
-switch (_that) {
-case Fetch():
-return fetch(_that);case _$Fetch():
-return $fetch(_that);case Search():
-return search(_that);}
-}
-/// A variant of `map` that fallback to returning `null`.
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case final Subclass value:
-///     return ...;
-///   case _:
-///     return null;
-/// }
-/// ```
-
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( Fetch value)?  fetch,TResult? Function( _$Fetch value)?  $fetch,TResult? Function( Search value)?  search,}){
-final _that = this;
-switch (_that) {
-case Fetch() when fetch != null:
-return fetch(_that);case _$Fetch() when $fetch != null:
-return $fetch(_that);case Search() when search != null:
-return search(_that);case _:
-  return null;
-
-}
-}
-/// A variant of `when` that fallback to an `orElse` callback.
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case Subclass(:final field):
-///     return ...;
-///   case _:
-///     return orElse();
-/// }
-/// ```
-
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  fetch,TResult Function( int page)?  $fetch,TResult Function( String query)?  search,required TResult orElse(),}) {final _that = this;
-switch (_that) {
-case Fetch() when fetch != null:
-return fetch();case _$Fetch() when $fetch != null:
-return $fetch(_that.page);case Search() when search != null:
-return search(_that.query);case _:
-  return orElse();
-
-}
-}
-/// A `switch`-like method, using callbacks.
-///
-/// As opposed to `map`, this offers destructuring.
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case Subclass(:final field):
-///     return ...;
-///   case Subclass2(:final field2):
-///     return ...;
-/// }
-/// ```
-
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  fetch,required TResult Function( int page)  $fetch,required TResult Function( String query)  search,}) {final _that = this;
-switch (_that) {
-case Fetch():
-return fetch();case _$Fetch():
-return $fetch(_that.page);case Search():
-return search(_that.query);}
-}
-/// A variant of `when` that fallback to returning `null`
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case Subclass(:final field):
-///     return ...;
-///   case _:
-///     return null;
-/// }
-/// ```
-
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  fetch,TResult? Function( int page)?  $fetch,TResult? Function( String query)?  search,}) {final _that = this;
-switch (_that) {
-case Fetch() when fetch != null:
-return fetch();case _$Fetch() when $fetch != null:
-return $fetch(_that.page);case Search() when search != null:
-return search(_that.query);case _:
-  return null;
-
-}
-}
-
-}
 
 /// @nodoc
 
 
-class Fetch implements A {
-  const Fetch();
+class _Fetch implements A {
+  const _Fetch();
   
 
 
@@ -191,7 +56,7 @@ class Fetch implements A {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Fetch);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Fetch);
 }
 
 
@@ -211,9 +76,9 @@ String toString() {
 
 /// @nodoc
 
-@internal
-class _$Fetch implements A {
-  const _$Fetch(this.page);
+
+class _Fetch$ implements A {
+  const _Fetch$(this.page);
   
 
  final  int page;
@@ -222,13 +87,13 @@ class _$Fetch implements A {
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$$FetchCopyWith<_$Fetch> get copyWith => __$$FetchCopyWithImpl<_$Fetch>(this, _$identity);
+_$Fetch$CopyWith<_Fetch$> get copyWith => __$Fetch$CopyWithImpl<_Fetch$>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _$Fetch&&(identical(other.page, page) || other.page == page));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Fetch$&&(identical(other.page, page) || other.page == page));
 }
 
 
@@ -237,15 +102,15 @@ int get hashCode => Object.hash(runtimeType,page);
 
 @override
 String toString() {
-  return 'A.\$fetch(page: $page)';
+  return 'A._fetch\$(page: $page)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$$FetchCopyWith<$Res> implements $ACopyWith<$Res> {
-  factory _$$FetchCopyWith(_$Fetch value, $Res Function(_$Fetch) _then) = __$$FetchCopyWithImpl;
+abstract mixin class _$Fetch$CopyWith<$Res> implements $ACopyWith<$Res> {
+  factory _$Fetch$CopyWith(_Fetch$ value, $Res Function(_Fetch$) _then) = __$Fetch$CopyWithImpl;
 @useResult
 $Res call({
  int page
@@ -256,17 +121,17 @@ $Res call({
 
 }
 /// @nodoc
-class __$$FetchCopyWithImpl<$Res>
-    implements _$$FetchCopyWith<$Res> {
-  __$$FetchCopyWithImpl(this._self, this._then);
+class __$Fetch$CopyWithImpl<$Res>
+    implements _$Fetch$CopyWith<$Res> {
+  __$Fetch$CopyWithImpl(this._self, this._then);
 
-  final _$Fetch _self;
-  final $Res Function(_$Fetch) _then;
+  final _Fetch$ _self;
+  final $Res Function(_Fetch$) _then;
 
 /// Create a copy of A
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? page = null,}) {
-  return _then(_$Fetch(
+  return _then(_Fetch$(
 null == page ? _self.page : page // ignore: cast_nullable_to_non_nullable
 as int,
   ));
@@ -278,8 +143,8 @@ as int,
 /// @nodoc
 
 
-class Search implements A {
-  const Search(this.query);
+class _Search implements A {
+  const _Search(this.query);
   
 
  final  String query;
@@ -288,13 +153,13 @@ class Search implements A {
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$SearchCopyWith<Search> get copyWith => _$SearchCopyWithImpl<Search>(this, _$identity);
+_$SearchCopyWith<_Search> get copyWith => __$SearchCopyWithImpl<_Search>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Search&&(identical(other.query, query) || other.query == query));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Search&&(identical(other.query, query) || other.query == query));
 }
 
 
@@ -310,8 +175,8 @@ String toString() {
 }
 
 /// @nodoc
-abstract mixin class $SearchCopyWith<$Res> implements $ACopyWith<$Res> {
-  factory $SearchCopyWith(Search value, $Res Function(Search) _then) = _$SearchCopyWithImpl;
+abstract mixin class _$SearchCopyWith<$Res> implements $ACopyWith<$Res> {
+  factory _$SearchCopyWith(_Search value, $Res Function(_Search) _then) = __$SearchCopyWithImpl;
 @useResult
 $Res call({
  String query
@@ -322,17 +187,17 @@ $Res call({
 
 }
 /// @nodoc
-class _$SearchCopyWithImpl<$Res>
-    implements $SearchCopyWith<$Res> {
-  _$SearchCopyWithImpl(this._self, this._then);
+class __$SearchCopyWithImpl<$Res>
+    implements _$SearchCopyWith<$Res> {
+  __$SearchCopyWithImpl(this._self, this._then);
 
-  final Search _self;
-  final $Res Function(Search) _then;
+  final _Search _self;
+  final $Res Function(_Search) _then;
 
 /// Create a copy of A
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? query = null,}) {
-  return _then(Search(
+  return _then(_Search(
 null == query ? _self.query : query // ignore: cast_nullable_to_non_nullable
 as String,
   ));
@@ -340,6 +205,38 @@ as String,
 
 
 }
+
+/// @nodoc
+
+
+class _Refresh implements A {
+  const _Refresh();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Refresh);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'A.refresh()';
+}
+
+
+}
+
+
+
 
 /// @nodoc
 mixin _$S<T> {
