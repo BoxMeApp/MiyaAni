@@ -11,9 +11,17 @@ class SubjectRepository {
 
   /// 获取番剧时间表
   Future<List<CalendarItem>> getCalendar() async {
-    final responseBody = await _getData('calendar');
+    final responseBody = await _getDataAsync('calendar');
     final List<dynamic> jsonData = jsonDecode(responseBody);
     return jsonData.map((json) => CalendarItem.fromJson(json)).toList();
+  }
+
+  /// 获取条目列表
+  Future<List<Subject>> getSubjects(int limit, int offset) async {
+    final String endpoint = 'v0/subjects?type=2&limit=$limit&offset=$offset';
+    final data = await _getDataAsync(endpoint);
+    final json = jsonDecode(data)['data'] as List<dynamic>;
+    return json.map((item) => Subject.fromJson(item)).toList();
   }
 
   /// 搜索条目
@@ -65,7 +73,7 @@ class SubjectRepository {
   }
 
   /// 发送GET请求并获取响应数据
-  Future<String> _getData(String endpoint) async {
+  Future<String> _getDataAsync(String endpoint) async {
     final response = await http.get(
       Uri.parse(baseUrl + endpoint),
       headers: _buildHeaders(),

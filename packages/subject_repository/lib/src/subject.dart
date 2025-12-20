@@ -14,6 +14,17 @@ enum SubjectType {
   final int code;
 }
 
+enum SubjectAnimeCategory {
+  other(0),
+  tv(1),
+  ova(2),
+  movie(3),
+  web(5);
+
+  final int code;
+  const SubjectAnimeCategory(this.code);
+}
+
 enum ImageType {
   large,
   common,

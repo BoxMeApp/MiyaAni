@@ -57,4 +57,22 @@ void main() {
       print(firstSubject);
     });
   });
+
+  group('getSubjects', () {
+    final subjectRepository = SubjectRepository();
+
+    test('getSubjects with valid parameters, expect has results', () async {
+      final subjects = await subjectRepository.getSubjects(5, 0);
+      expect(subjects, isNotEmpty);
+      expect(subjects.length, lessThanOrEqualTo(5));
+    });
+
+    test('getSubjects with valid parameters, expect subject has correct properties', () async {
+      final subjects = await subjectRepository.getSubjects(5, 0);
+      final firstSubject = subjects.first;
+      checkCommonSubjectProperties(firstSubject);
+      expect(firstSubject.summary, isA<String>());
+      print(firstSubject);
+    });
+  });
 }
