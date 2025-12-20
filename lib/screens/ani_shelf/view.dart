@@ -94,20 +94,11 @@ class $AniShelfPage<T> extends StatelessWidget {
 }
 
 class AniSearch extends StatefulWidget implements PreferredSizeWidget {
-  const AniSearch({
-    super.key,
-    this.onSubmit,
-    this.showSearchPage = false,
-    required this.getSuggestions,
-  });
+  const AniSearch({super.key, this.onSubmit, required this.getSuggestions});
 
   final ValueChanged<String>? onSubmit;
 
   final Future<List<String>> Function(String? query) getSuggestions;
-
-  /// 比如移动版，空间小，需要一个单独的搜索页面
-  /// 桌面版可以直接在当前页面搜索
-  final bool showSearchPage;
 
   @override
   State<AniSearch> createState() => _AniSearchState();
