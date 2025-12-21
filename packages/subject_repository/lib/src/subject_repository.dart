@@ -31,7 +31,7 @@ class SubjectRepository {
     int limit = 10,
     bool nsfw = false,
   }) async {
-    final uri = Uri.parse('${baseUrl}v0/search/subjects');
+    final uri = Uri.parse('${baseUrl}v0/search/subjects?limit=$limit&offset=$offset');
     final requestbody = jsonEncode(<String, dynamic>{
       'keyword': keyword,
       'sort': 'rank',

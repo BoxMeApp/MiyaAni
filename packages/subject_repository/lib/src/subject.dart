@@ -45,6 +45,16 @@ abstract class Subject with _$Subject {
 
   factory Subject.fromJson(Map<String, dynamic> json) =>
       _$SubjectFromJson(json);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    return other is Subject && other.id == id;
+  }
+  
+  @override
+  int get hashCode => id.hashCode;
+  
 }
 
 @freezed
