@@ -28,7 +28,7 @@ class M<T> extends Cms<S<T>, A> {
   @override
   Future<S<T>?> kernel(S<T> s, A a) async => switch (a) {
     // dart format off
-    _Fetch   _ =>  () {
+    _Fetch   _ => () {
                     if (s.pages.isLoading || !s.pages.hasNextPage) return null;
 
                     final page = s.pages.lastPageIsEmpty 
@@ -40,7 +40,7 @@ class M<T> extends Cms<S<T>, A> {
                     add(._fetch$(page)); // 真正的 fetch
                     return s.copyWith(pages: s.pages.copyWith(isLoading: true)); // 给外部观测
                   }(),
-    _Fetch$ a =>  _fetch(a.page, s.tag).then(
+    _Fetch$  a => _fetch(a.page, s.tag).then(
                     (items) => s.copyWith(
                       pages: s.pages.copyWith(
                         isLoading: false,
@@ -53,11 +53,11 @@ class M<T> extends Cms<S<T>, A> {
                       pages: s.pages.copyWith(isLoading: false, error: error)
                     ),
                   ),
-    _Search  a =>  () {
+    _Search  a => () {
                     add(.fetch());
                     return S<T>.zero().copyWith(tag: a.query);
                   }(),
-    _Refresh _ =>  () {
+    _Refresh _ => () {
                     add(.fetch());
                     return S<T>.zero().copyWith(tag: s.tag);
                   }(),
