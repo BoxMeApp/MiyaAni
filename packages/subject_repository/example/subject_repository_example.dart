@@ -6,6 +6,6 @@ void main() async {
   final calendar = await subjectRepo.getCalendar();
   print('Fetched ${calendar.length} days in calendar.');
 
-  final searchResults = await subjectRepo.searchSubjects("魔法少女", 10, 0);
+  final searchResults = await subjectRepo.searchSubjects("魔法少女", 10);
   print('Search returned ${searchResults.length} subjects.');
 }

@@ -17,7 +17,7 @@ class SubjectRepository {
   }
 
   /// 获取条目列表
-  Future<List<Subject>> getSubjects(int limit, int offset) async {
+  Future<List<Subject>> getSubjects(int offset, {int limit = 10}) async {
     final String endpoint = 'v0/subjects?type=2&limit=$limit&offset=$offset';
     final data = await _getData(endpoint);
     final json = jsonDecode(data)['data'] as List<dynamic>;
@@ -27,8 +27,8 @@ class SubjectRepository {
   /// 搜索条目
   Future<List<Subject>> searchSubjects(
     String keyword,
-    int limit,
     int offset, {
+    int limit = 10,
     bool nsfw = false,
   }) async {
     final uri = Uri.parse('${baseUrl}v0/search/subjects');

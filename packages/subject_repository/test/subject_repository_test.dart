@@ -44,13 +44,13 @@ void main() {
     final subjectRepository = SubjectRepository();
 
     test('searchSubjects with valid keyword, expect has results', () async {
-      final subjects = await subjectRepository.searchSubjects('魔法少女', 10, 0);
+      final subjects = await subjectRepository.searchSubjects('魔法少女', 0, limit: 10);
       expect(subjects, isNotEmpty);
       expect(subjects.length, lessThanOrEqualTo(10));
     });
 
     test('searchSubjects with valid keyword, expect subject has correct properties', () async {
-      final subjects = await subjectRepository.searchSubjects('魔法少女', 10, 0);
+      final subjects = await subjectRepository.searchSubjects('魔法少女', 0, limit: 10);
       final firstSubject = subjects.first;
       checkCommonSubjectProperties(firstSubject);
       expect(firstSubject.summary, isA<String>());
@@ -62,13 +62,13 @@ void main() {
     final subjectRepository = SubjectRepository();
 
     test('getSubjects with valid parameters, expect has results', () async {
-      final subjects = await subjectRepository.getSubjects(5, 0);
+      final subjects = await subjectRepository.getSubjects(0, limit: 5);
       expect(subjects, isNotEmpty);
       expect(subjects.length, lessThanOrEqualTo(5));
     });
 
     test('getSubjects with valid parameters, expect subject has correct properties', () async {
-      final subjects = await subjectRepository.getSubjects(5, 0);
+      final subjects = await subjectRepository.getSubjects(0, limit: 5);
       final firstSubject = subjects.first;
       checkCommonSubjectProperties(firstSubject);
       expect(firstSubject.summary, isA<String>());
