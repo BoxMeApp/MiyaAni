@@ -35,6 +35,8 @@ enum ImageType {
 
 @freezed
 abstract class Subject with _$Subject {
+  const Subject._();
+
   const factory Subject({
     required int id,
     required String name,
@@ -53,8 +55,7 @@ abstract class Subject with _$Subject {
   }
   
   @override
-  int get hashCode => id.hashCode;
-  
+  int get hashCode => id.hashCode;  
 }
 
 @freezed
@@ -62,12 +63,12 @@ abstract class CalendarItem with _$CalendarItem {
   const CalendarItem._();
   
   const factory CalendarItem({
-    required Map<String, dynamic> weekday,
+    required ({String cn, String en, String ja, int id}) weekday,
     required List<Subject> items,
   }) = _CalendarItem;
 
-  String get weekdayCn => weekday['cn'] ?? '';
-  int get weekdayId => weekday['id'] ?? 0;
+  String get weekdayCn => weekday.cn;
+  int get weekdayId => weekday.id;
 
   factory CalendarItem.fromJson(Map<String, dynamic> json) =>
       _$CalendarItemFromJson(json);

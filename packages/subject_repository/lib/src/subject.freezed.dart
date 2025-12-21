@@ -26,14 +26,7 @@ $SubjectCopyWith<Subject> get copyWith => _$SubjectCopyWithImpl<Subject>(this as
   Map<String, dynamic> toJson();
 
 
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Subject&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.images, images)&&(identical(other.url, url) || other.url == url)&&(identical(other.summary, summary) || other.summary == summary));
-}
 
-@JsonKey(includeFromJson: false, includeToJson: false)
-@override
-int get hashCode => Object.hash(runtimeType,id,name,const DeepCollectionEquality().hash(images),url,summary);
 
 @override
 String toString() {
@@ -212,8 +205,8 @@ return $default(_that.id,_that.name,_that.images,_that.url,_that.summary);case _
 /// @nodoc
 @JsonSerializable()
 
-class _Subject implements Subject {
-  const _Subject({required this.id, required this.name, required final  Map<ImageType, String> images, this.url, this.summary}): _images = images;
+class _Subject extends Subject {
+  const _Subject({required this.id, required this.name, required final  Map<ImageType, String> images, this.url, this.summary}): _images = images,super._();
   factory _Subject.fromJson(Map<String, dynamic> json) => _$SubjectFromJson(json);
 
 @override final  int id;
@@ -239,14 +232,7 @@ Map<String, dynamic> toJson() {
   return _$SubjectToJson(this, );
 }
 
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Subject&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other._images, _images)&&(identical(other.url, url) || other.url == url)&&(identical(other.summary, summary) || other.summary == summary));
-}
 
-@JsonKey(includeFromJson: false, includeToJson: false)
-@override
-int get hashCode => Object.hash(runtimeType,id,name,const DeepCollectionEquality().hash(_images),url,summary);
 
 @override
 String toString() {
@@ -296,7 +282,7 @@ as String?,
 /// @nodoc
 mixin _$CalendarItem {
 
- Map<String, dynamic> get weekday; List<Subject> get items;
+ ({String cn, String en, String ja, int id}) get weekday; List<Subject> get items;
 /// Create a copy of CalendarItem
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -309,12 +295,12 @@ $CalendarItemCopyWith<CalendarItem> get copyWith => _$CalendarItemCopyWithImpl<C
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CalendarItem&&const DeepCollectionEquality().equals(other.weekday, weekday)&&const DeepCollectionEquality().equals(other.items, items));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CalendarItem&&(identical(other.weekday, weekday) || other.weekday == weekday)&&const DeepCollectionEquality().equals(other.items, items));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(weekday),const DeepCollectionEquality().hash(items));
+int get hashCode => Object.hash(runtimeType,weekday,const DeepCollectionEquality().hash(items));
 
 @override
 String toString() {
@@ -329,7 +315,7 @@ abstract mixin class $CalendarItemCopyWith<$Res>  {
   factory $CalendarItemCopyWith(CalendarItem value, $Res Function(CalendarItem) _then) = _$CalendarItemCopyWithImpl;
 @useResult
 $Res call({
- Map<String, dynamic> weekday, List<Subject> items
+ ({String cn, String en, String ja, int id}) weekday, List<Subject> items
 });
 
 
@@ -349,7 +335,7 @@ class _$CalendarItemCopyWithImpl<$Res>
 @pragma('vm:prefer-inline') @override $Res call({Object? weekday = null,Object? items = null,}) {
   return _then(_self.copyWith(
 weekday: null == weekday ? _self.weekday : weekday // ignore: cast_nullable_to_non_nullable
-as Map<String, dynamic>,items: null == items ? _self.items : items // ignore: cast_nullable_to_non_nullable
+as ({String cn, String en, String ja, int id}),items: null == items ? _self.items : items // ignore: cast_nullable_to_non_nullable
 as List<Subject>,
   ));
 }
@@ -435,7 +421,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Map<String, dynamic> weekday,  List<Subject> items)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( ({String cn, String en, String ja, int id}) weekday,  List<Subject> items)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _CalendarItem() when $default != null:
 return $default(_that.weekday,_that.items);case _:
@@ -456,7 +442,7 @@ return $default(_that.weekday,_that.items);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Map<String, dynamic> weekday,  List<Subject> items)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( ({String cn, String en, String ja, int id}) weekday,  List<Subject> items)  $default,) {final _that = this;
 switch (_that) {
 case _CalendarItem():
 return $default(_that.weekday,_that.items);case _:
@@ -476,7 +462,7 @@ return $default(_that.weekday,_that.items);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Map<String, dynamic> weekday,  List<Subject> items)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( ({String cn, String en, String ja, int id}) weekday,  List<Subject> items)?  $default,) {final _that = this;
 switch (_that) {
 case _CalendarItem() when $default != null:
 return $default(_that.weekday,_that.items);case _:
@@ -491,16 +477,10 @@ return $default(_that.weekday,_that.items);case _:
 @JsonSerializable()
 
 class _CalendarItem extends CalendarItem {
-  const _CalendarItem({required final  Map<String, dynamic> weekday, required final  List<Subject> items}): _weekday = weekday,_items = items,super._();
+  const _CalendarItem({required this.weekday, required final  List<Subject> items}): _items = items,super._();
   factory _CalendarItem.fromJson(Map<String, dynamic> json) => _$CalendarItemFromJson(json);
 
- final  Map<String, dynamic> _weekday;
-@override Map<String, dynamic> get weekday {
-  if (_weekday is EqualUnmodifiableMapView) return _weekday;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableMapView(_weekday);
-}
-
+@override final  ({String cn, String en, String ja, int id}) weekday;
  final  List<Subject> _items;
 @override List<Subject> get items {
   if (_items is EqualUnmodifiableListView) return _items;
@@ -522,12 +502,12 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CalendarItem&&const DeepCollectionEquality().equals(other._weekday, _weekday)&&const DeepCollectionEquality().equals(other._items, _items));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CalendarItem&&(identical(other.weekday, weekday) || other.weekday == weekday)&&const DeepCollectionEquality().equals(other._items, _items));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_weekday),const DeepCollectionEquality().hash(_items));
+int get hashCode => Object.hash(runtimeType,weekday,const DeepCollectionEquality().hash(_items));
 
 @override
 String toString() {
@@ -542,7 +522,7 @@ abstract mixin class _$CalendarItemCopyWith<$Res> implements $CalendarItemCopyWi
   factory _$CalendarItemCopyWith(_CalendarItem value, $Res Function(_CalendarItem) _then) = __$CalendarItemCopyWithImpl;
 @override @useResult
 $Res call({
- Map<String, dynamic> weekday, List<Subject> items
+ ({String cn, String en, String ja, int id}) weekday, List<Subject> items
 });
 
 
@@ -561,8 +541,8 @@ class __$CalendarItemCopyWithImpl<$Res>
 /// with the given fields replaced by the non-null parameter values.
 @override @pragma('vm:prefer-inline') $Res call({Object? weekday = null,Object? items = null,}) {
   return _then(_CalendarItem(
-weekday: null == weekday ? _self._weekday : weekday // ignore: cast_nullable_to_non_nullable
-as Map<String, dynamic>,items: null == items ? _self._items : items // ignore: cast_nullable_to_non_nullable
+weekday: null == weekday ? _self.weekday : weekday // ignore: cast_nullable_to_non_nullable
+as ({String cn, String en, String ja, int id}),items: null == items ? _self._items : items // ignore: cast_nullable_to_non_nullable
 as List<Subject>,
   ));
 }

@@ -34,11 +34,30 @@ const _$ImageTypeEnumMap = {
 
 _CalendarItem _$CalendarItemFromJson(Map<String, dynamic> json) =>
     _CalendarItem(
-      weekday: json['weekday'] as Map<String, dynamic>,
+      weekday: _$recordConvert(
+        json['weekday'],
+        ($jsonValue) => (
+          cn: $jsonValue['cn'] as String,
+          en: $jsonValue['en'] as String,
+          id: ($jsonValue['id'] as num).toInt(),
+          ja: $jsonValue['ja'] as String,
+        ),
+      ),
       items: (json['items'] as List<dynamic>)
           .map((e) => Subject.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
 Map<String, dynamic> _$CalendarItemToJson(_CalendarItem instance) =>
-    <String, dynamic>{'weekday': instance.weekday, 'items': instance.items};
+    <String, dynamic>{
+      'weekday': <String, dynamic>{
+        'cn': instance.weekday.cn,
+        'en': instance.weekday.en,
+        'id': instance.weekday.id,
+        'ja': instance.weekday.ja,
+      },
+      'items': instance.items,
+    };
+
+$Rec _$recordConvert<$Rec>(Object? value, $Rec Function(Map) convert) =>
+    convert(value as Map<String, dynamic>);
