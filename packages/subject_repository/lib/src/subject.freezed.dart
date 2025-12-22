@@ -15,7 +15,12 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Subject {
 
- int get id; String get name; Map<ImageType, String> get images; String? get url; String? get summary;
+/// 条目 id
+ int get id;/// 条目名称
+ String get name;/// 条目图像 URL 映射，键为 [ImageType] 枚举值，值为对应尺寸的图像 URL
+ Map<ImageType, String> get images;/// 条目链接地址
+ String? get url;/// 条目简介
+ String? get summary;
 /// Create a copy of Subject
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -209,16 +214,22 @@ class _Subject extends Subject {
   const _Subject({required this.id, required this.name, required final  Map<ImageType, String> images, this.url, this.summary}): _images = images,super._();
   factory _Subject.fromJson(Map<String, dynamic> json) => _$SubjectFromJson(json);
 
+/// 条目 id
 @override final  int id;
+/// 条目名称
 @override final  String name;
+/// 条目图像 URL 映射，键为 [ImageType] 枚举值，值为对应尺寸的图像 URL
  final  Map<ImageType, String> _images;
+/// 条目图像 URL 映射，键为 [ImageType] 枚举值，值为对应尺寸的图像 URL
 @override Map<ImageType, String> get images {
   if (_images is EqualUnmodifiableMapView) return _images;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableMapView(_images);
 }
 
+/// 条目链接地址
 @override final  String? url;
+/// 条目简介
 @override final  String? summary;
 
 /// Create a copy of Subject
@@ -282,7 +293,9 @@ as String?,
 /// @nodoc
 mixin _$CalendarItem {
 
- ({String cn, String en, String ja, int id}) get weekday; List<Subject> get items;
+/// 表示星期几的不同语言名称和 [id]，其中星期一的 [id] 为 1，星期日的 [id] 为 7
+ ({String cn, String en, String ja, int id}) get weekday;/// 当天的番剧条目列表
+ List<Subject> get items;
 /// Create a copy of CalendarItem
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -480,8 +493,11 @@ class _CalendarItem extends CalendarItem {
   const _CalendarItem({required this.weekday, required final  List<Subject> items}): _items = items,super._();
   factory _CalendarItem.fromJson(Map<String, dynamic> json) => _$CalendarItemFromJson(json);
 
+/// 表示星期几的不同语言名称和 [id]，其中星期一的 [id] 为 1，星期日的 [id] 为 7
 @override final  ({String cn, String en, String ja, int id}) weekday;
+/// 当天的番剧条目列表
  final  List<Subject> _items;
+/// 当天的番剧条目列表
 @override List<Subject> get items {
   if (_items is EqualUnmodifiableListView) return _items;
   // ignore: implicit_dynamic_type
