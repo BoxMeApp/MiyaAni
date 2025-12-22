@@ -8,4 +8,5 @@ void main() async {
 
   final searchResults = await subjectRepo.searchSubjects("魔法少女", 10);
   print('Search returned ${searchResults.length} subjects.');
+  print('First subject: ${searchResults.first.id}');
 }
