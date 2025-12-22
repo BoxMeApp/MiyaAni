@@ -124,6 +124,7 @@ void main() {
 
 void _checkCommonSubjectProperties(Subject subject) {
   expect(subject.id, isA<int>());
-  expect(subject.name, isA<String>());
+  expect(subject.nameJa, isA<String>());
+  expect(subject.nameCn, isA<String>());
   expect(subject.images, isA<Map<ImageType, String>>());
 }

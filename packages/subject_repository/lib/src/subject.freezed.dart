@@ -16,8 +16,9 @@ T _$identity<T>(T value) => value;
 mixin _$Subject {
 
 /// 条目 id
- int get id;/// 条目名称
- String get name;/// 条目图像 URL 映射，键为 [ImageType] 枚举值，值为对应尺寸的图像 URL
+ int get id;/// 条目名称(日文)
+@JsonKey(name: 'name') String get nameJa;/// 条目名称(中文)
+@JsonKey(name: 'name_cn') String get nameCn;/// 条目图像 URL 映射，键为 [ImageType] 枚举值，值为对应尺寸的图像 URL
  Map<ImageType, String> get images;/// 条目链接地址
  String? get url;/// 条目简介
  String? get summary;
@@ -35,7 +36,7 @@ $SubjectCopyWith<Subject> get copyWith => _$SubjectCopyWithImpl<Subject>(this as
 
 @override
 String toString() {
-  return 'Subject(id: $id, name: $name, images: $images, url: $url, summary: $summary)';
+  return 'Subject(id: $id, nameJa: $nameJa, nameCn: $nameCn, images: $images, url: $url, summary: $summary)';
 }
 
 
@@ -46,7 +47,7 @@ abstract mixin class $SubjectCopyWith<$Res>  {
   factory $SubjectCopyWith(Subject value, $Res Function(Subject) _then) = _$SubjectCopyWithImpl;
 @useResult
 $Res call({
- int id, String name, Map<ImageType, String> images, String? url, String? summary
+ int id,@JsonKey(name: 'name') String nameJa,@JsonKey(name: 'name_cn') String nameCn, Map<ImageType, String> images, String? url, String? summary
 });
 
 
@@ -63,10 +64,11 @@ class _$SubjectCopyWithImpl<$Res>
 
 /// Create a copy of Subject
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? images = null,Object? url = freezed,Object? summary = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? nameJa = null,Object? nameCn = null,Object? images = null,Object? url = freezed,Object? summary = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as int,nameJa: null == nameJa ? _self.nameJa : nameJa // ignore: cast_nullable_to_non_nullable
+as String,nameCn: null == nameCn ? _self.nameCn : nameCn // ignore: cast_nullable_to_non_nullable
 as String,images: null == images ? _self.images : images // ignore: cast_nullable_to_non_nullable
 as Map<ImageType, String>,url: freezed == url ? _self.url : url // ignore: cast_nullable_to_non_nullable
 as String?,summary: freezed == summary ? _self.summary : summary // ignore: cast_nullable_to_non_nullable
@@ -155,10 +157,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String name,  Map<ImageType, String> images,  String? url,  String? summary)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id, @JsonKey(name: 'name')  String nameJa, @JsonKey(name: 'name_cn')  String nameCn,  Map<ImageType, String> images,  String? url,  String? summary)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Subject() when $default != null:
-return $default(_that.id,_that.name,_that.images,_that.url,_that.summary);case _:
+return $default(_that.id,_that.nameJa,_that.nameCn,_that.images,_that.url,_that.summary);case _:
   return orElse();
 
 }
@@ -176,10 +178,10 @@ return $default(_that.id,_that.name,_that.images,_that.url,_that.summary);case _
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String name,  Map<ImageType, String> images,  String? url,  String? summary)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id, @JsonKey(name: 'name')  String nameJa, @JsonKey(name: 'name_cn')  String nameCn,  Map<ImageType, String> images,  String? url,  String? summary)  $default,) {final _that = this;
 switch (_that) {
 case _Subject():
-return $default(_that.id,_that.name,_that.images,_that.url,_that.summary);case _:
+return $default(_that.id,_that.nameJa,_that.nameCn,_that.images,_that.url,_that.summary);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -196,10 +198,10 @@ return $default(_that.id,_that.name,_that.images,_that.url,_that.summary);case _
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String name,  Map<ImageType, String> images,  String? url,  String? summary)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id, @JsonKey(name: 'name')  String nameJa, @JsonKey(name: 'name_cn')  String nameCn,  Map<ImageType, String> images,  String? url,  String? summary)?  $default,) {final _that = this;
 switch (_that) {
 case _Subject() when $default != null:
-return $default(_that.id,_that.name,_that.images,_that.url,_that.summary);case _:
+return $default(_that.id,_that.nameJa,_that.nameCn,_that.images,_that.url,_that.summary);case _:
   return null;
 
 }
@@ -211,13 +213,15 @@ return $default(_that.id,_that.name,_that.images,_that.url,_that.summary);case _
 @JsonSerializable()
 
 class _Subject extends Subject {
-  const _Subject({required this.id, required this.name, required final  Map<ImageType, String> images, this.url, this.summary}): _images = images,super._();
+  const _Subject({required this.id, @JsonKey(name: 'name') required this.nameJa, @JsonKey(name: 'name_cn') required this.nameCn, required final  Map<ImageType, String> images, this.url, this.summary}): _images = images,super._();
   factory _Subject.fromJson(Map<String, dynamic> json) => _$SubjectFromJson(json);
 
 /// 条目 id
 @override final  int id;
-/// 条目名称
-@override final  String name;
+/// 条目名称(日文)
+@override@JsonKey(name: 'name') final  String nameJa;
+/// 条目名称(中文)
+@override@JsonKey(name: 'name_cn') final  String nameCn;
 /// 条目图像 URL 映射，键为 [ImageType] 枚举值，值为对应尺寸的图像 URL
  final  Map<ImageType, String> _images;
 /// 条目图像 URL 映射，键为 [ImageType] 枚举值，值为对应尺寸的图像 URL
@@ -247,7 +251,7 @@ Map<String, dynamic> toJson() {
 
 @override
 String toString() {
-  return 'Subject(id: $id, name: $name, images: $images, url: $url, summary: $summary)';
+  return 'Subject(id: $id, nameJa: $nameJa, nameCn: $nameCn, images: $images, url: $url, summary: $summary)';
 }
 
 
@@ -258,7 +262,7 @@ abstract mixin class _$SubjectCopyWith<$Res> implements $SubjectCopyWith<$Res> {
   factory _$SubjectCopyWith(_Subject value, $Res Function(_Subject) _then) = __$SubjectCopyWithImpl;
 @override @useResult
 $Res call({
- int id, String name, Map<ImageType, String> images, String? url, String? summary
+ int id,@JsonKey(name: 'name') String nameJa,@JsonKey(name: 'name_cn') String nameCn, Map<ImageType, String> images, String? url, String? summary
 });
 
 
@@ -275,10 +279,11 @@ class __$SubjectCopyWithImpl<$Res>
 
 /// Create a copy of Subject
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? images = null,Object? url = freezed,Object? summary = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? nameJa = null,Object? nameCn = null,Object? images = null,Object? url = freezed,Object? summary = freezed,}) {
   return _then(_Subject(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as int,nameJa: null == nameJa ? _self.nameJa : nameJa // ignore: cast_nullable_to_non_nullable
+as String,nameCn: null == nameCn ? _self.nameCn : nameCn // ignore: cast_nullable_to_non_nullable
 as String,images: null == images ? _self._images : images // ignore: cast_nullable_to_non_nullable
 as Map<ImageType, String>,url: freezed == url ? _self.url : url // ignore: cast_nullable_to_non_nullable
 as String?,summary: freezed == summary ? _self.summary : summary // ignore: cast_nullable_to_non_nullable
