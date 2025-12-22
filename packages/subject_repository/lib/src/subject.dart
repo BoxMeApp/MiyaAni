@@ -54,8 +54,12 @@ abstract class Subject with _$Subject {
   const factory Subject({
     /// 条目 id
     required int id,
-    /// 条目名称
-    required String name,
+    /// 条目名称(日文)
+    @JsonKey(name: 'name')
+    required String nameJa,
+    /// 条目名称(中文)
+    @JsonKey(name: 'name_cn')
+    required String nameCn,
     /// 条目图像 URL 映射，键为 [ImageType] 枚举值，值为对应尺寸的图像 URL
     required Map<ImageType, String> images,
     /// 条目链接地址

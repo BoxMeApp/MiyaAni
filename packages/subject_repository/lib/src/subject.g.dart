@@ -8,7 +8,8 @@ part of 'subject.dart';
 
 _Subject _$SubjectFromJson(Map<String, dynamic> json) => _Subject(
   id: (json['id'] as num).toInt(),
-  name: json['name'] as String,
+  nameJa: json['name'] as String,
+  nameCn: json['name_cn'] as String,
   images: (json['images'] as Map<String, dynamic>).map(
     (k, e) => MapEntry($enumDecode(_$ImageTypeEnumMap, k), e as String),
   ),
@@ -18,7 +19,8 @@ _Subject _$SubjectFromJson(Map<String, dynamic> json) => _Subject(
 
 Map<String, dynamic> _$SubjectToJson(_Subject instance) => <String, dynamic>{
   'id': instance.id,
-  'name': instance.name,
+  'name': instance.nameJa,
+  'name_cn': instance.nameCn,
   'images': instance.images.map((k, e) => MapEntry(_$ImageTypeEnumMap[k]!, e)),
   'url': instance.url,
   'summary': instance.summary,
