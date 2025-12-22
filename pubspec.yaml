@@ -23,6 +23,8 @@ dependencies:
   intl: ^0.20.2
   subject_repository:
     path: packages/subject_repository
+  cached_network_image: ^3.4.1
+  shared_preferences: ^2.5.4
 
 dev_dependencies:
   flutter_test:
