@@ -103,6 +103,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'MiyaAni'**
   String get appTitle;
+
+  /// No description provided for @search.
+  ///
+  /// In en, this message translates to:
+  /// **'search...'**
+  String get search;
 }
 
 class _AppLocalizationsDelegate

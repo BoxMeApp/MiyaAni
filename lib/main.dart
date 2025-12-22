@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miya_ani/l10n/generated/localizations.dart';
-import 'package:miya_ani/screens/ani_shelf/view.dart';
+import 'package:subject_repository/subject_repository.dart';
+
+import 'screens/router.dart';
 
 void main() {
   runApp(const App());
@@ -12,20 +14,14 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      onGenerateTitle: (context) => AppLocalizations.of(context)!.appTitle,
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
-      home: const HomePage(),
+    return MultiRepositoryProvider(
+      providers: [RepositoryProvider(create: (context) => SubjectRepository())],
+      child: MaterialApp.router(
+        routerConfig: router,
+        onGenerateTitle: (context) => AppLocalizations.of(context)!.appTitle,
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+      ),
     );
-  }
-}
-
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(body: Center(child: AniShelfPage.test()));
   }
 }

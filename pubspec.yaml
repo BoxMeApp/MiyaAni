@@ -21,6 +21,8 @@ dependencies:
   flutter_bloc: ^9.1.1
   go_router: ^17.0.1
   intl: ^0.20.2
+  subject_repository:
+    path: packages/subject_repository
 
 dev_dependencies:
   flutter_test:

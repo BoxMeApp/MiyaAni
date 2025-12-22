@@ -3,11 +3,14 @@ import 'package:flutter/widget_previews.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infix/via.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:subject_repository/subject_repository.dart';
 import 'dart:math' as math;
 
 import 'cms.dart';
 
-class AniShelfPage {
+class AniShelfPage extends StatelessWidget {
+  const AniShelfPage({super.key});
+
   static Widget test() => $coloredBoxShelf();
 
   @Preview(name: 'ColoredBox Shelf', size: Size(400, 300))
@@ -32,6 +35,26 @@ class AniShelfPage {
           getSuggestions: (query) => repo.fakeSuggestions(query),
         );
   }
+
+  @override
+  Widget build(BuildContext context) =>
+      via(
+        (Widget c) => BlocProvider(
+          create: (context) => M<Subject>(RealRepo.of(context).fetch),
+          child: c,
+        ),
+      ) >
+      // view
+      $AniShelfPage<Subject>(
+        builder: (item) =>
+            via((Widget c) => Card(child: c)) >
+            Text(
+              item.toString(),
+              style: const TextStyle(fontSize: 24),
+              textAlign: .center,
+            ),
+        getSuggestions: (query) => RealRepo.of(context).getSuggestions(query),
+      );
 }
 
 class FakeRepo {
@@ -61,6 +84,33 @@ class FakeRepo {
     }();
     await Future.delayed(const Duration(seconds: 1));
     return relative.skip((pageKey - 1) * 20).take(20).toList();
+  }
+}
+
+class RealRepo {
+  final SubjectRepository _subjectRepo;
+  RealRepo.of(BuildContext context)
+    : _subjectRepo = context.read<SubjectRepository>();
+
+  Future<List<Subject>> fetch(int pageKey, String? query) {
+    final offset = (pageKey - 1) * 10;
+    if (query == null || query.isEmpty) {
+      return _subjectRepo.getSubjects(offset, limit: 10);
+    } else {
+      return _subjectRepo.searchSubjects(query, offset, limit: 10);
+    }
+  }
+
+  Future<List<String>> getSuggestions(String? query, [int topK = 10]) async {
+    final history = ['进击的巨人', '鬼灭之刃', '魔法少女'].take(topK).toList();
+
+    // 默认返回历史
+    if (query == null || query.isEmpty) {
+      return history;
+    }
+    // 简单的包含匹配
+    final results = await _subjectRepo.searchSubjects(query, 0, limit: topK);
+    return results.map((e) => e.name).toList();
   }
 }
 

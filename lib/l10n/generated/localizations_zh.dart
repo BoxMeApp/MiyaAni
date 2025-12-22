@@ -10,4 +10,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get appTitle => 'MiyaAni';
+
+  @override
+  String get search => '搜索...';
 }
