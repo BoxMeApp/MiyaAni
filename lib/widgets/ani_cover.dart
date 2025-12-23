@@ -72,19 +72,5 @@ class AniCover extends StatelessWidget {
         ),
       ],
     );
-
-    // return CachedNetworkImage(
-    //   imageUrl: content.images.medium,
-    //   placeholder: (context, url) =>
-    //       const Center(child: CircularProgressIndicator()),
-    //   errorWidget: (context, url, error) => Row(
-    //     children: [
-    //       const Icon(Icons.error),
-    //       Expanded(child: Text(error.toString())),
-    //     ],
-    //   ),
-    //   fit: .fitWidth,
-    // );
-    // return Image.network(content.images.medium, fit: .fitWidth);
   }
 }

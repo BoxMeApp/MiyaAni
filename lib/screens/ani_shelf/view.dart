@@ -126,7 +126,12 @@ class RealRepo {
         ? await _subjectRepo.getSubjects(0, limit: topK)
         : await _subjectRepo.searchSubjects(query, 0, limit: topK);
     return results
-        .map((e) => DatabaseSuggestion(e.nameCn, icon: e.images.small))
+        .map(
+          (e) => DatabaseSuggestion(
+            e.nameCn.isNotEmpty ? e.nameCn : e.nameJa,
+            icon: e.images.small,
+          ),
+        )
         .toList();
   }
 }
