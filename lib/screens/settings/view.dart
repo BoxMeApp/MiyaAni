@@ -13,14 +13,18 @@ class SettingsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Settings')),
       body: Center(
-        child: DropdownButton<Locale?>(
-          value: prefs.locale,
-          onChanged: (Locale? locale) => prefs.locale = locale,
-          items: [
-            DropdownMenuItem(value: null, child: Text(l10n.systemDefault)),
-            DropdownMenuItem(value: Locale('en'), child: Text(l10n.en)),
-            DropdownMenuItem(value: Locale('zh'), child: Text(l10n.zh)),
-          ],
+        child: StreamBuilder(
+          stream: prefs.locale$,
+          initialData: prefs.locale,
+          builder: (context, snapshot) => DropdownButton<Locale?>(
+            value: snapshot.data,
+            onChanged: (locale) => prefs.locale = locale,
+            items: [
+              .new(value: null, child: Text(l10n.systemDefault)),
+              .new(value: Locale('en'), child: Text(l10n.en)),
+              .new(value: Locale('zh'), child: Text(l10n.zh)),
+            ],
+          ),
         ),
       ),
     );

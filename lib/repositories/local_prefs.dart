@@ -21,7 +21,7 @@ class LocalPrefs {
   );
 
   static const _kLocale = 'locale';
-  final _locale = StreamController<Locale?>();
+  final _locale = StreamController<Locale?>.broadcast();
   Stream<Locale?> get locale$ => _locale.stream;
   Locale? get locale {
     final localeString = _prefs.getString(_kLocale);
