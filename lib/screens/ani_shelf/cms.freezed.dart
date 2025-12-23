@@ -498,4 +498,200 @@ as String?,
 
 }
 
+/// @nodoc
+mixin _$Suggestion {
+
+ String get value;
+/// Create a copy of Suggestion
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$SuggestionCopyWith<Suggestion> get copyWith => _$SuggestionCopyWithImpl<Suggestion>(this as Suggestion, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Suggestion&&(identical(other.value, value) || other.value == value));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,value);
+
+@override
+String toString() {
+  return 'Suggestion(value: $value)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $SuggestionCopyWith<$Res>  {
+  factory $SuggestionCopyWith(Suggestion value, $Res Function(Suggestion) _then) = _$SuggestionCopyWithImpl;
+@useResult
+$Res call({
+ String value
+});
+
+
+
+
+}
+/// @nodoc
+class _$SuggestionCopyWithImpl<$Res>
+    implements $SuggestionCopyWith<$Res> {
+  _$SuggestionCopyWithImpl(this._self, this._then);
+
+  final Suggestion _self;
+  final $Res Function(Suggestion) _then;
+
+/// Create a copy of Suggestion
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? value = null,}) {
+  return _then(_self.copyWith(
+value: null == value ? _self.value : value // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+}
+
+
+
+/// @nodoc
+
+
+class HistorySuggestion implements Suggestion {
+  const HistorySuggestion(this.value);
+  
+
+@override final  String value;
+
+/// Create a copy of Suggestion
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$HistorySuggestionCopyWith<HistorySuggestion> get copyWith => _$HistorySuggestionCopyWithImpl<HistorySuggestion>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is HistorySuggestion&&(identical(other.value, value) || other.value == value));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,value);
+
+@override
+String toString() {
+  return 'Suggestion.history(value: $value)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $HistorySuggestionCopyWith<$Res> implements $SuggestionCopyWith<$Res> {
+  factory $HistorySuggestionCopyWith(HistorySuggestion value, $Res Function(HistorySuggestion) _then) = _$HistorySuggestionCopyWithImpl;
+@override @useResult
+$Res call({
+ String value
+});
+
+
+
+
+}
+/// @nodoc
+class _$HistorySuggestionCopyWithImpl<$Res>
+    implements $HistorySuggestionCopyWith<$Res> {
+  _$HistorySuggestionCopyWithImpl(this._self, this._then);
+
+  final HistorySuggestion _self;
+  final $Res Function(HistorySuggestion) _then;
+
+/// Create a copy of Suggestion
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? value = null,}) {
+  return _then(HistorySuggestion(
+null == value ? _self.value : value // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class DatabaseSuggestion implements Suggestion {
+  const DatabaseSuggestion(this.value, {this.icon});
+  
+
+@override final  String value;
+ final  String? icon;
+
+/// Create a copy of Suggestion
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$DatabaseSuggestionCopyWith<DatabaseSuggestion> get copyWith => _$DatabaseSuggestionCopyWithImpl<DatabaseSuggestion>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DatabaseSuggestion&&(identical(other.value, value) || other.value == value)&&(identical(other.icon, icon) || other.icon == icon));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,value,icon);
+
+@override
+String toString() {
+  return 'Suggestion.database(value: $value, icon: $icon)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $DatabaseSuggestionCopyWith<$Res> implements $SuggestionCopyWith<$Res> {
+  factory $DatabaseSuggestionCopyWith(DatabaseSuggestion value, $Res Function(DatabaseSuggestion) _then) = _$DatabaseSuggestionCopyWithImpl;
+@override @useResult
+$Res call({
+ String value, String? icon
+});
+
+
+
+
+}
+/// @nodoc
+class _$DatabaseSuggestionCopyWithImpl<$Res>
+    implements $DatabaseSuggestionCopyWith<$Res> {
+  _$DatabaseSuggestionCopyWithImpl(this._self, this._then);
+
+  final DatabaseSuggestion _self;
+  final $Res Function(DatabaseSuggestion) _then;
+
+/// Create a copy of Suggestion
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? value = null,Object? icon = freezed,}) {
+  return _then(DatabaseSuggestion(
+null == value ? _self.value : value // ignore: cast_nullable_to_non_nullable
+as String,icon: freezed == icon ? _self.icon : icon // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
+}
+
+
+}
+
 // dart format on

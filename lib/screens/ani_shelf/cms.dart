@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cms/cms.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -65,4 +67,43 @@ class M<T> extends Cms<S<T>, A> {
     _          =>  undefined(s, a),
     // dart format on
   };
+}
+
+@Freezed(
+  map: .new(map: false, mapOrNull: false, maybeMap: false),
+  when: .new(when: false, whenOrNull: false, maybeWhen: false),
+)
+sealed class Suggestion with _$Suggestion {
+  const factory Suggestion.history(String value) = HistorySuggestion;
+  const factory Suggestion.database(String value, {String? icon}) =
+      DatabaseSuggestion;
+}
+
+class GetSuggestions {
+  final FutureOr<List<HistorySuggestion>> Function(int) getHistory;
+  final FutureOr<List<DatabaseSuggestion>> Function(String query, int)
+  getDatabase;
+  final int topK;
+
+  const GetSuggestions({
+    required this.getHistory,
+    required this.getDatabase,
+    this.topK = 10,
+  });
+
+  Future<List<Suggestion>> call(String? query) async {
+    final history = await getHistory(topK);
+
+    if (query == null || query.isEmpty) return history;
+    // 优先搜索历史
+    final historyMatched = history
+        .where((e) => e.value.startsWith(query))
+        .toList();
+    // 然后增加数据库候选项
+    final dbSuggestions = await getDatabase(
+      query,
+      topK - historyMatched.length,
+    );
+    return [...historyMatched, ...dbSuggestions];
+  }
 }

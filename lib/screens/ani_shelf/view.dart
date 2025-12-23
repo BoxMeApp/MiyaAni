@@ -8,11 +8,8 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:miya_ani/repositories/local_prefs.dart';
 import 'package:miya_ani/widgets/ani_cover.dart';
 import 'package:subject_repository/subject_repository.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'cms.dart';
-
-part 'view.freezed.dart';
 
 class AniShelfPage extends StatelessWidget {
   const AniShelfPage({super.key});
@@ -39,8 +36,11 @@ class AniShelfPage extends StatelessWidget {
                 textAlign: .center,
               ),
           getSuggestions: GetSuggestions(
-            getHistory: (topK) =>
-                [10, 22, 50].take(topK).map((e) => e.toString()).toList(),
+            getHistory: (topK) => [
+              10,
+              22,
+              50,
+            ].take(topK).map((e) => HistorySuggestion(e.toString())).toList(),
             getDatabase: (query, topK) => repo.fakeSuggestions(query, topK),
           ).call,
         );
@@ -62,8 +62,12 @@ class AniShelfPage extends StatelessWidget {
         builder: (item) =>
             via((Widget c) => Card(child: c)) > AniCover(content: item),
         getSuggestions: GetSuggestions(
-          getHistory: (topK) =>
-              context.read<LocalPrefs>().searchHistory.getLatest(topK),
+          getHistory: (topK) => context
+              .read<LocalPrefs>()
+              .searchHistory
+              .getLatest(topK)
+              .map((e) => HistorySuggestion(e))
+              .toList(),
           getDatabase: RealRepo.of(context).getSuggestions,
         ).call,
       );
@@ -72,22 +76,21 @@ class AniShelfPage extends StatelessWidget {
 class FakeRepo {
   final database = List.generate(100, (index) => index);
 
-  Future<List<(String, String?)>> fakeSuggestions(
+  Future<List<DatabaseSuggestion>> fakeSuggestions(
     String? query,
     int topK,
   ) async {
     if (query == null || query.isEmpty) {
       return database
           .take(topK)
-          .map((e) => e.toString())
-          .map((e) => (e, null))
+          .map((e) => DatabaseSuggestion(e.toString()))
           .toList();
     }
     return database
         .map((e) => e.toString())
         .where((e) => e.contains(query))
         .take(topK)
-        .map((e) => (e, null))
+        .map((e) => DatabaseSuggestion(e))
         .toList();
   }
 
@@ -116,14 +119,16 @@ class RealRepo {
     return _subjectRepo.searchSubjects(query, offset, limit: 10);
   }
 
-  Future<List<(String, String?)>> getSuggestions(
+  Future<List<DatabaseSuggestion>> getSuggestions(
     String? query,
     int topK,
   ) async {
     final results = query == null || query.isEmpty
         ? await _subjectRepo.getSubjects(0, limit: topK)
         : await _subjectRepo.searchSubjects(query, 0, limit: topK);
-    return results.map((e) => (e.nameCn, e.images.small)).toList();
+    return results
+        .map((e) => DatabaseSuggestion(e.nameCn, icon: e.images.small))
+        .toList();
   }
 }
 
@@ -195,28 +200,8 @@ class _AniSearchState extends State<AniSearch> {
               .then(
                 (items) => items
                     .map(
-                      (e) => ListTile(
-                        leading: switch (e) {
-                          _HistorySuggestion _ => const Icon(
-                            Icons.history,
-                            size: 20,
-                          ),
-                          _DatabaseSuggestion d =>
-                            d.icon != null
-                                ? Image.network(
-                                    d.icon!,
-                                    width: 20,
-                                    height: 20,
-                                    errorBuilder:
-                                        (context, error, stackTrace) =>
-                                            const Icon(
-                                              Icons.image_not_supported,
-                                              size: 20,
-                                            ),
-                                  )
-                                : const Icon(Icons.search, size: 20),
-                        },
-                        title: Text(e.value),
+                      (e) => SuggestionTile(
+                        e,
                         onTap: () {
                           controller.text = e.value;
                           widget.onSubmit?.call(e.value);
@@ -272,43 +257,29 @@ bool isMobile(BuildContext context) => switch (Theme.of(context).platform) {
   .macOS || .linux || .windows => false,
 };
 
-@Freezed(
-  map: .new(map: false, mapOrNull: false, maybeMap: false),
-  when: .new(when: false, whenOrNull: false, maybeWhen: false),
-)
-sealed class Suggestion with _$Suggestion {
-  const factory Suggestion.history(String value) = _HistorySuggestion;
-  const factory Suggestion.database(String value, {String? icon}) =
-      _DatabaseSuggestion;
-}
+class SuggestionTile extends StatelessWidget {
+  final Suggestion content;
+  final void Function()? onTap;
+  const SuggestionTile(this.content, {super.key, this.onTap});
 
-class GetSuggestions {
-  final FutureOr<List<String>> Function(int) getHistory;
-  final FutureOr<List<(String, String?)>> Function(String query, int)
-  getDatabase;
-  final int topK;
-
-  const GetSuggestions({
-    required this.getHistory,
-    required this.getDatabase,
-    this.topK = 10,
-  });
-
-  Future<List<Suggestion>> call(String? query) async {
-    final history = (await getHistory(
-      topK,
-    )).map((e) => Suggestion.history(e)).toList();
-
-    if (query == null || query.isEmpty) return history;
-    // 优先搜索历史
-    final historyMatched = history
-        .where((e) => e.value.startsWith(query))
-        .toList();
-    // 简单的包含匹配
-    final results = await getDatabase(query, topK - historyMatched.length);
-    final dbSuggestions = results
-        .map((e) => Suggestion.database(e.$1, icon: e.$2))
-        .toList();
-    return [...historyMatched, ...dbSuggestions];
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: switch (content) {
+        HistorySuggestion _ => const Icon(Icons.history, size: 20),
+        DatabaseSuggestion d =>
+          d.icon != null
+              ? Image.network(
+                  d.icon!,
+                  width: 20,
+                  height: 20,
+                  errorBuilder: (context, error, stackTrace) =>
+                      const Icon(Icons.image_not_supported, size: 20),
+                )
+              : const Icon(Icons.search, size: 20),
+      },
+      title: Text(content.value),
+      onTap: onTap,
+    );
   }
 }
