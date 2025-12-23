@@ -18,8 +18,11 @@ mixin _$Subject {
 /// 条目 id
  int get id;/// 条目名称(日文)
 @JsonKey(name: 'name') String get nameJa;/// 条目名称(中文)
-@JsonKey(name: 'name_cn') String get nameCn;/// 条目图像 URL 映射，键为 [ImageType] 枚举值，值为对应尺寸的图像 URL
- Map<ImageType, String> get images;/// 条目链接地址
+@JsonKey(name: 'name_cn') String get nameCn;/// 条目图像 URL，对应不同尺寸
+/// 
+/// 其中 [common] 为常规尺寸，介于 [large] 与 [medium] 之间，
+/// [grid] 为比 [small] 更小的尺寸，常用于缩略图
+ ({String large, String common, String medium, String small, String grid}) get images;/// 条目链接地址
  String? get url;/// 条目简介
  String? get summary;
 /// Create a copy of Subject
@@ -47,7 +50,7 @@ abstract mixin class $SubjectCopyWith<$Res>  {
   factory $SubjectCopyWith(Subject value, $Res Function(Subject) _then) = _$SubjectCopyWithImpl;
 @useResult
 $Res call({
- int id,@JsonKey(name: 'name') String nameJa,@JsonKey(name: 'name_cn') String nameCn, Map<ImageType, String> images, String? url, String? summary
+ int id,@JsonKey(name: 'name') String nameJa,@JsonKey(name: 'name_cn') String nameCn, ({String large, String common, String medium, String small, String grid}) images, String? url, String? summary
 });
 
 
@@ -70,7 +73,7 @@ id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,nameJa: null == nameJa ? _self.nameJa : nameJa // ignore: cast_nullable_to_non_nullable
 as String,nameCn: null == nameCn ? _self.nameCn : nameCn // ignore: cast_nullable_to_non_nullable
 as String,images: null == images ? _self.images : images // ignore: cast_nullable_to_non_nullable
-as Map<ImageType, String>,url: freezed == url ? _self.url : url // ignore: cast_nullable_to_non_nullable
+as ({String large, String common, String medium, String small, String grid}),url: freezed == url ? _self.url : url // ignore: cast_nullable_to_non_nullable
 as String?,summary: freezed == summary ? _self.summary : summary // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
@@ -157,7 +160,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id, @JsonKey(name: 'name')  String nameJa, @JsonKey(name: 'name_cn')  String nameCn,  Map<ImageType, String> images,  String? url,  String? summary)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id, @JsonKey(name: 'name')  String nameJa, @JsonKey(name: 'name_cn')  String nameCn,  ({String large, String common, String medium, String small, String grid}) images,  String? url,  String? summary)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Subject() when $default != null:
 return $default(_that.id,_that.nameJa,_that.nameCn,_that.images,_that.url,_that.summary);case _:
@@ -178,7 +181,7 @@ return $default(_that.id,_that.nameJa,_that.nameCn,_that.images,_that.url,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id, @JsonKey(name: 'name')  String nameJa, @JsonKey(name: 'name_cn')  String nameCn,  Map<ImageType, String> images,  String? url,  String? summary)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id, @JsonKey(name: 'name')  String nameJa, @JsonKey(name: 'name_cn')  String nameCn,  ({String large, String common, String medium, String small, String grid}) images,  String? url,  String? summary)  $default,) {final _that = this;
 switch (_that) {
 case _Subject():
 return $default(_that.id,_that.nameJa,_that.nameCn,_that.images,_that.url,_that.summary);case _:
@@ -198,7 +201,7 @@ return $default(_that.id,_that.nameJa,_that.nameCn,_that.images,_that.url,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id, @JsonKey(name: 'name')  String nameJa, @JsonKey(name: 'name_cn')  String nameCn,  Map<ImageType, String> images,  String? url,  String? summary)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id, @JsonKey(name: 'name')  String nameJa, @JsonKey(name: 'name_cn')  String nameCn,  ({String large, String common, String medium, String small, String grid}) images,  String? url,  String? summary)?  $default,) {final _that = this;
 switch (_that) {
 case _Subject() when $default != null:
 return $default(_that.id,_that.nameJa,_that.nameCn,_that.images,_that.url,_that.summary);case _:
@@ -213,7 +216,7 @@ return $default(_that.id,_that.nameJa,_that.nameCn,_that.images,_that.url,_that.
 @JsonSerializable()
 
 class _Subject extends Subject {
-  const _Subject({required this.id, @JsonKey(name: 'name') required this.nameJa, @JsonKey(name: 'name_cn') required this.nameCn, required final  Map<ImageType, String> images, this.url, this.summary}): _images = images,super._();
+  const _Subject({required this.id, @JsonKey(name: 'name') required this.nameJa, @JsonKey(name: 'name_cn') required this.nameCn, required this.images, this.url, this.summary}): super._();
   factory _Subject.fromJson(Map<String, dynamic> json) => _$SubjectFromJson(json);
 
 /// 条目 id
@@ -222,15 +225,11 @@ class _Subject extends Subject {
 @override@JsonKey(name: 'name') final  String nameJa;
 /// 条目名称(中文)
 @override@JsonKey(name: 'name_cn') final  String nameCn;
-/// 条目图像 URL 映射，键为 [ImageType] 枚举值，值为对应尺寸的图像 URL
- final  Map<ImageType, String> _images;
-/// 条目图像 URL 映射，键为 [ImageType] 枚举值，值为对应尺寸的图像 URL
-@override Map<ImageType, String> get images {
-  if (_images is EqualUnmodifiableMapView) return _images;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableMapView(_images);
-}
-
+/// 条目图像 URL，对应不同尺寸
+/// 
+/// 其中 [common] 为常规尺寸，介于 [large] 与 [medium] 之间，
+/// [grid] 为比 [small] 更小的尺寸，常用于缩略图
+@override final  ({String large, String common, String medium, String small, String grid}) images;
 /// 条目链接地址
 @override final  String? url;
 /// 条目简介
@@ -262,7 +261,7 @@ abstract mixin class _$SubjectCopyWith<$Res> implements $SubjectCopyWith<$Res> {
   factory _$SubjectCopyWith(_Subject value, $Res Function(_Subject) _then) = __$SubjectCopyWithImpl;
 @override @useResult
 $Res call({
- int id,@JsonKey(name: 'name') String nameJa,@JsonKey(name: 'name_cn') String nameCn, Map<ImageType, String> images, String? url, String? summary
+ int id,@JsonKey(name: 'name') String nameJa,@JsonKey(name: 'name_cn') String nameCn, ({String large, String common, String medium, String small, String grid}) images, String? url, String? summary
 });
 
 
@@ -284,8 +283,8 @@ class __$SubjectCopyWithImpl<$Res>
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,nameJa: null == nameJa ? _self.nameJa : nameJa // ignore: cast_nullable_to_non_nullable
 as String,nameCn: null == nameCn ? _self.nameCn : nameCn // ignore: cast_nullable_to_non_nullable
-as String,images: null == images ? _self._images : images // ignore: cast_nullable_to_non_nullable
-as Map<ImageType, String>,url: freezed == url ? _self.url : url // ignore: cast_nullable_to_non_nullable
+as String,images: null == images ? _self.images : images // ignore: cast_nullable_to_non_nullable
+as ({String large, String common, String medium, String small, String grid}),url: freezed == url ? _self.url : url // ignore: cast_nullable_to_non_nullable
 as String?,summary: freezed == summary ? _self.summary : summary // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
