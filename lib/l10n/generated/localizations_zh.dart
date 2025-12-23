@@ -24,6 +24,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get lang => '语言';
 
   @override
+  String get systemDefault => '系统默认';
+
+  @override
   String get en => '英文';
 
   @override

@@ -1,4 +1,6 @@
+import 'dart:async';
 import 'dart:collection';
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LocalPrefs {
@@ -17,6 +19,24 @@ class LocalPrefs {
     _prefs.getStringList(_kSearchHistory) ?? [],
     onChanged: (items) => _prefs.setStringList(_kSearchHistory, items),
   );
+
+  static const _kLocale = 'locale';
+  final _locale = StreamController<Locale?>();
+  Stream<Locale?> get locale$ => _locale.stream;
+  Locale? get locale {
+    final localeString = _prefs.getString(_kLocale);
+    if (localeString == null) return null;
+    return localeFromString(localeString);
+  }
+
+  set locale(Locale? value) {
+    if (value == null) {
+      _prefs.remove(_kLocale);
+    } else {
+      _prefs.setString(_kLocale, value.toString());
+    }
+    _locale.add(value);
+  }
 }
 
 class SearchHistory {
@@ -59,4 +79,15 @@ class SearchHistory {
 
   /// 只读
   List<String> get items => List.unmodifiable(_items);
+}
+
+@visibleForTesting
+Locale? localeFromString(String localeString) {
+  final parts = localeString.split('_');
+
+  return switch (parts.length) {
+    1 => Locale(parts[0]),
+    2 => Locale(parts[0], parts[1]),
+    _ => null,
+  };
 }

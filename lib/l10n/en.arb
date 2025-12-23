@@ -5,6 +5,7 @@
   "home": "home",
   "settings": "settings",
   "lang": "language",
+  "systemDefault": "System default",
   "en": "English",
   "zh": "Chinese"
 }

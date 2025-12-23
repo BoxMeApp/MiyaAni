@@ -5,6 +5,7 @@
   "home": "首页",
   "settings": "设置",
   "lang": "语言",
+  "systemDefault": "系统默认",
   "en": "英文",
   "zh": "中文"
 }

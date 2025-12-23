@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:infix/via.dart';
 
 import 'home/view.dart';
 import 'ani_shelf/view.dart';
@@ -47,12 +48,14 @@ extension PageChangeExt on BuildContext {
 
 final router = GoRouter(
   routes: [
-    ShellRoute(
-      builder: (context, state, child) => HomePage(child: child),
-      routes: [
-        _p(.home, (context, state) => const AniShelfPage()),
-        _p(.settings, (context, state) => const SettingsPage()),
+    StatefulShellRoute.indexedStack(
+      branches: [
+        via((GoRoute p) => StatefulShellBranch(routes: [p])) >
+            _p(.home, (context, state) => const AniShelfPage()),
+        via((GoRoute p) => StatefulShellBranch(routes: [p])) >
+            _p(.settings, (context, state) => const SettingsPage()),
       ],
+      builder: (context, state, shell) => HomePage(child: shell),
     ),
   ],
 );

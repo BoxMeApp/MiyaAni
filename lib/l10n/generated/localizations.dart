@@ -100,44 +100,50 @@ abstract class AppLocalizations {
 
   /// No description provided for @appTitle.
   ///
-  /// In en, this message translates to:
+  /// In zh, this message translates to:
   /// **'MiyaAni'**
   String get appTitle;
 
   /// No description provided for @search.
   ///
-  /// In en, this message translates to:
-  /// **'search...'**
+  /// In zh, this message translates to:
+  /// **'搜索...'**
   String get search;
 
   /// No description provided for @home.
   ///
-  /// In en, this message translates to:
-  /// **'home'**
+  /// In zh, this message translates to:
+  /// **'首页'**
   String get home;
 
   /// No description provided for @settings.
   ///
-  /// In en, this message translates to:
-  /// **'settings'**
+  /// In zh, this message translates to:
+  /// **'设置'**
   String get settings;
 
   /// No description provided for @lang.
   ///
-  /// In en, this message translates to:
-  /// **'language'**
+  /// In zh, this message translates to:
+  /// **'语言'**
   String get lang;
+
+  /// No description provided for @systemDefault.
+  ///
+  /// In zh, this message translates to:
+  /// **'系统默认'**
+  String get systemDefault;
 
   /// No description provided for @en.
   ///
-  /// In en, this message translates to:
-  /// **'English'**
+  /// In zh, this message translates to:
+  /// **'英文'**
   String get en;
 
   /// No description provided for @zh.
   ///
-  /// In en, this message translates to:
-  /// **'Chinese'**
+  /// In zh, this message translates to:
+  /// **'中文'**
   String get zh;
 }
 
