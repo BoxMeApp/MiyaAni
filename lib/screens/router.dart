@@ -44,9 +44,7 @@ final router = GoRouter(
   routes: [
     ShellRoute(
       builder: (context, state, child) => HomePage(child: child),
-      routes: [
-        _p(.home, (context, state) => const HomePage(child: AniShelfPage())),
-      ],
+      routes: [_p(.home, (context, state) => const AniShelfPage())],
     ),
   ],
 );

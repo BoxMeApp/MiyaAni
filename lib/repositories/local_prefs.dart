@@ -49,7 +49,6 @@ class SearchHistory {
     onChanged?.call(_items.toList());
   }
 
-  /// k > length 时自动截断
   List<String> getLatest(int k) {
     if (k <= 0) return const [];
     if (k >= _items.length) {

@@ -23,11 +23,11 @@ sealed class S with _$S {
 
 class M extends Cms<S, A> {
   M() : super(const Zero());
+  // dart format off
   @override
   Future<S> kernel(S s, A a) async => switch ((s, a)) {
-    // dart format off
     (Zero _, Init _) => Loaded(localPrefs: await LocalPrefs.create()),
     _                => undefined(s, a),
-    // dart format on
   };
+  // dart format on
 }

@@ -1,14 +1,15 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widget_previews.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infix/via.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:miya_ani/repositories/local_prefs.dart';
-import 'package:miya_ani/widgets/ani_cover.dart';
+import 'package:miya_ani/l10n/generated/localizations.dart';
 import 'package:subject_repository/subject_repository.dart';
 
+import 'package:miya_ani/widgets/ani_cover.dart';
+import 'package:miya_ani/repositories/local_prefs.dart';
+import 'package:miya_ani/utils/preview.dart';
 import 'cms.dart';
 
 class AniShelfPage extends StatelessWidget {
@@ -16,7 +17,7 @@ class AniShelfPage extends StatelessWidget {
 
   static Widget test() => $coloredBoxShelf();
 
-  @Preview(name: 'ColoredBox Shelf', size: Size(400, 300))
+  @AppPreview(name: 'ColoredBox Shelf', size: Size(400, 300))
   static Widget $coloredBoxShelf() {
     final repo = FakeRepo();
     // controller
@@ -188,7 +189,7 @@ class _AniSearchState extends State<AniSearch> {
           barShape: WidgetStatePropertyAll(
             RoundedRectangleBorder(borderRadius: .circular(12)),
           ),
-          barHintText: 'Search...',
+          barHintText: AppLocalizations.of(context)!.search,
           barLeading: const Icon(Icons.search),
           viewShape: RoundedRectangleBorder(borderRadius: .circular(12)),
           searchController: _searchController,

@@ -51,25 +51,19 @@ class AniCover extends StatelessWidget {
               fit: .fitWidth,
             ),
 
-        Positioned(
-          bottom: 8,
-          left: 8,
-          right: 8,
-          child: Container(
-            color: Colors.black54,
-            child: Text(
+        via(
+              (Widget c) => Positioned(bottom: 8, left: 8, right: 8, child: c),
+            ).via((Widget c) => Container(color: Colors.black54, child: c)) >
+            Text(
               content.nameCn.isNotEmpty ? content.nameCn : content.nameJa,
               style: const TextStyle(
                 color: Colors.white,
                 fontSize: 16,
                 fontWeight: .bold,
               ),
-              maxLines: 2,
               textAlign: .center,
               overflow: .ellipsis,
             ),
-          ),
-        ),
       ],
     );
   }

@@ -13,4 +13,10 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get search => '搜索...';
+
+  @override
+  String get home => '首页';
+
+  @override
+  String get settings => '设置';
 }

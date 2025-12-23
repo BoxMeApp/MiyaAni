@@ -1,5 +1,7 @@
 {
   "@@locale": "en",
   "appTitle": "MiyaAni",
-  "search": "search..."
+  "search": "search...",
+  "home": "home",
+  "settings": "settings"
 }

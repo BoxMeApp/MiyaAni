@@ -28,9 +28,9 @@ class M<T> extends Cms<S<T>, A> {
   final void Function(String)? onSearch;
 
   M({required this.fetch, this.onSearch}) : super(.zero());
+  // dart format off
   @override
   Future<S<T>?> kernel(S<T> s, A a) async => switch (a) {
-    // dart format off
     _Fetch   _ => () {
                     if (s.pages.isLoading || !s.pages.hasNextPage) return null;
 
@@ -40,8 +40,8 @@ class M<T> extends Cms<S<T>, A> {
                     if (page == null) {
                       return s.copyWith(pages: s.pages.copyWith(hasNextPage: false));
                     }
-                    add(._fetch$(page)); // 真正的 fetch
-                    return s.copyWith(pages: s.pages.copyWith(isLoading: true)); // 给外部观测
+                    add(._fetch$(page));
+                    return s.copyWith(pages: s.pages.copyWith(isLoading: true));
                   }(),
     _Fetch$  a => fetch(a.page, s.tag).then(
                     (items) => s.copyWith(
@@ -65,9 +65,8 @@ class M<T> extends Cms<S<T>, A> {
                     add(.fetch());
                     return S<T>.zero().copyWith(tag: s.tag);
                   }(),
-    _          =>  undefined(s, a),
-    // dart format on
   };
+  // dart format on
 }
 
 @Freezed(
@@ -93,7 +92,8 @@ class GetSuggestions {
   });
 
   Future<List<Suggestion>> call(String? query) async {
-    print("GetSuggestions.call(query: $query)");
+    // TODO: rm
+    // print("GetSuggestions.call(query: $query)");
     final history = await getHistory(topK);
 
     if (query == null || query.isEmpty) return history;

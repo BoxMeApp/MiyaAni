@@ -109,6 +109,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'search...'**
   String get search;
+
+  /// No description provided for @home.
+  ///
+  /// In en, this message translates to:
+  /// **'home'**
+  String get home;
+
+  /// No description provided for @settings.
+  ///
+  /// In en, this message translates to:
+  /// **'settings'**
+  String get settings;
 }
 
 class _AppLocalizationsDelegate

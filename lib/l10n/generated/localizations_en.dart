@@ -13,4 +13,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get search => 'search...';
+
+  @override
+  String get home => 'home';
+
+  @override
+  String get settings => 'settings';
 }
