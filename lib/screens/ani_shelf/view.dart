@@ -59,8 +59,7 @@ class AniShelfPage extends StatelessWidget {
       ) >
       // view
       $AniShelfPage<Subject>(
-        builder: (item) =>
-            via((Widget c) => Card(child: c)) > AniCover(content: item),
+        builder: (item) => AniCover(content: item),
         getSuggestions: GetSuggestions(
           getHistory: (topK) => context
               .read<LocalPrefs>()

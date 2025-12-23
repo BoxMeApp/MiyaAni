@@ -58,6 +58,7 @@ class M<T> extends Cms<S<T>, A> {
                   ),
     _Search  a => () {
                     add(.fetch());
+                    onSearch?.call(a.query);
                     return S<T>.zero().copyWith(tag: a.query);
                   }(),
     _Refresh _ => () {

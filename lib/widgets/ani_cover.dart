@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widget_previews.dart';
+import 'package:infix/via.dart';
 import 'package:subject_repository/subject_repository.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
@@ -36,18 +37,19 @@ class AniCover extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        CachedNetworkImage(
-          imageUrl: content.images.medium,
-          placeholder: (context, url) =>
-              const Center(child: CircularProgressIndicator()),
-          errorWidget: (context, url, error) => Row(
-            children: [
-              const Icon(Icons.error),
-              Expanded(child: Text(error.toString())),
-            ],
-          ),
-          fit: .fitWidth,
-        ),
+        via((Widget c) => Positioned.fill(child: c)) >
+            CachedNetworkImage(
+              imageUrl: content.images.medium,
+              placeholder: (context, url) =>
+                  const Center(child: CircularProgressIndicator()),
+              errorWidget: (context, url, error) => Row(
+                children: [
+                  const Icon(Icons.error),
+                  Expanded(child: Text('$url\n${error.toString()}')),
+                ],
+              ),
+              fit: .fitWidth,
+            ),
 
         Positioned(
           bottom: 8,
@@ -55,7 +57,6 @@ class AniCover extends StatelessWidget {
           right: 8,
           child: Container(
             color: Colors.black54,
-            padding: const EdgeInsets.all(4),
             child: Text(
               content.nameCn.isNotEmpty ? content.nameCn : content.nameJa,
               style: const TextStyle(
@@ -71,6 +72,19 @@ class AniCover extends StatelessWidget {
         ),
       ],
     );
-    // return Image.network(content.images[ImageType.large]!, fit: .fill);
+
+    // return CachedNetworkImage(
+    //   imageUrl: content.images.medium,
+    //   placeholder: (context, url) =>
+    //       const Center(child: CircularProgressIndicator()),
+    //   errorWidget: (context, url, error) => Row(
+    //     children: [
+    //       const Icon(Icons.error),
+    //       Expanded(child: Text(error.toString())),
+    //     ],
+    //   ),
+    //   fit: .fitWidth,
+    // );
+    // return Image.network(content.images.medium, fit: .fitWidth);
   }
 }
