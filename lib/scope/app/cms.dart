@@ -4,18 +4,12 @@ import 'package:miya_ani/repositories/local_prefs.dart';
 
 part 'cms.freezed.dart';
 
-@Freezed(
-  map: .new(map: false, mapOrNull: false, maybeMap: false),
-  when: .new(when: false, whenOrNull: false, maybeWhen: false),
-)
+@freezed
 sealed class A with _$A {
   const factory A.init() = Init;
 }
 
-@Freezed(
-  map: .new(map: false, mapOrNull: false, maybeMap: false),
-  when: .new(when: false, whenOrNull: false, maybeWhen: false),
-)
+@freezed
 sealed class S with _$S {
   const factory S.zero() = Zero;
   const factory S.loaded({required LocalPrefs localPrefs}) = Loaded;

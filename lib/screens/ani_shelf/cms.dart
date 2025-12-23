@@ -6,10 +6,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'cms.freezed.dart';
 
-@Freezed(
-  map: .new(map: false, mapOrNull: false, maybeMap: false),
-  when: .new(when: false, whenOrNull: false, maybeWhen: false),
-)
+@freezed
 sealed class A with _$A {
   const factory A.fetch() = _Fetch;
   const factory A._fetch$(int page) = _Fetch$;
@@ -69,10 +66,7 @@ class M<T> extends Cms<S<T>, A> {
   // dart format on
 }
 
-@Freezed(
-  map: .new(map: false, mapOrNull: false, maybeMap: false),
-  when: .new(when: false, whenOrNull: false, maybeWhen: false),
-)
+@freezed
 sealed class Suggestion with _$Suggestion {
   const factory Suggestion.history(String value) = HistorySuggestion;
   const factory Suggestion.database(String value, {String? icon}) =

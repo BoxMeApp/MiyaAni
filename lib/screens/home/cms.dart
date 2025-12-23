@@ -3,10 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'cms.freezed.dart';
 
-@Freezed(
-  map: .new(map: false, mapOrNull: false, maybeMap: false),
-  when: .new(when: false, whenOrNull: false, maybeWhen: false),
-)
+@freezed
 sealed class A with _$A {
   const factory A.select(S page) = Select;
 }

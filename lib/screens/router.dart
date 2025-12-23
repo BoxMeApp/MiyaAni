@@ -17,10 +17,7 @@ enum _Patterns {
   const _Patterns(this.value);
 }
 
-@Freezed(
-  map: .new(map: false, mapOrNull: false, maybeMap: false),
-  when: .new(when: false, whenOrNull: false, maybeWhen: false),
-)
+@freezed
 sealed class PageUrl with _$PageUrl {
   const PageUrl._();
 

@@ -3,14 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miya_ani/l10n/generated/localizations.dart';
 import 'package:miya_ani/repositories/local_prefs.dart';
 import 'package:miya_ani/widgets/ani_cover.dart';
-import 'package:infix/via.dart';
 
 import 'screens/router.dart';
 import 'scope/app/view.dart';
 
-void main() {
-  runApp(AppScope(child: const App()));
-}
+void main() => runApp(AppScope(child: const App()));
 
 class App extends StatelessWidget {
   const App({super.key});
