@@ -93,6 +93,7 @@ class GetSuggestions {
   });
 
   Future<List<Suggestion>> call(String? query) async {
+    print("GetSuggestions.call(query: $query)");
     final history = await getHistory(topK);
 
     if (query == null || query.isEmpty) return history;
