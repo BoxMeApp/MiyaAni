@@ -123,7 +123,7 @@ class RealRepo {
     final results = query == null || query.isEmpty
         ? await _subjectRepo.getSubjects(0, limit: topK)
         : await _subjectRepo.searchSubjects(query, 0, limit: topK);
-    return results.map((e) => (e.nameCn, e.images[ImageType.small])).toList();
+    return results.map((e) => (e.nameCn, e.images.small)).toList();
   }
 }
 
