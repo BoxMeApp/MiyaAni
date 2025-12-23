@@ -121,6 +121,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'settings'**
   String get settings;
+
+  /// No description provided for @lang.
+  ///
+  /// In en, this message translates to:
+  /// **'language'**
+  String get lang;
+
+  /// No description provided for @en.
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get en;
+
+  /// No description provided for @zh.
+  ///
+  /// In en, this message translates to:
+  /// **'Chinese'**
+  String get zh;
 }
 
 class _AppLocalizationsDelegate

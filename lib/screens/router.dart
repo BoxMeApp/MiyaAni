@@ -4,11 +4,13 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'home/view.dart';
 import 'ani_shelf/view.dart';
+import 'settings/view.dart';
 
 part 'router.freezed.dart';
 
 enum _Patterns {
-  home('/');
+  home('/'),
+  settings('/settings');
 
   final String value;
   const _Patterns(this.value);
@@ -22,15 +24,18 @@ sealed class PageUrl with _$PageUrl {
   const PageUrl._();
 
   factory PageUrl.home() = _HomeUrl;
+  factory PageUrl.settings() = _SettingsUrl;
 
   _Patterns get _pattern => switch (this) {
     _HomeUrl() => .home,
+    _SettingsUrl() => .settings,
   };
 
   String get url {
     final p = _pattern.value;
     return switch (this) {
       _HomeUrl() => p,
+      _SettingsUrl() => p,
     };
   }
 }
@@ -44,7 +49,10 @@ final router = GoRouter(
   routes: [
     ShellRoute(
       builder: (context, state, child) => HomePage(child: child),
-      routes: [_p(.home, (context, state) => const AniShelfPage())],
+      routes: [
+        _p(.home, (context, state) => const AniShelfPage()),
+        _p(.settings, (context, state) => const SettingsPage()),
+      ],
     ),
   ],
 );

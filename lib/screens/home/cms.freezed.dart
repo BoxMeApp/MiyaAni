@@ -14,30 +14,61 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$A {
 
-
+ S get page;
+/// Create a copy of A
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$ACopyWith<A> get copyWith => _$ACopyWithImpl<A>(this as A, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is A);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is A&&(identical(other.page, page) || other.page == page));
 }
 
 
 @override
-int get hashCode => runtimeType.hashCode;
+int get hashCode => Object.hash(runtimeType,page);
 
 @override
 String toString() {
-  return 'A()';
+  return 'A(page: $page)';
 }
 
 
 }
 
 /// @nodoc
-class $ACopyWith<$Res>  {
-$ACopyWith(A _, $Res Function(A) __);
+abstract mixin class $ACopyWith<$Res>  {
+  factory $ACopyWith(A value, $Res Function(A) _then) = _$ACopyWithImpl;
+@useResult
+$Res call({
+ S page
+});
+
+
+
+
+}
+/// @nodoc
+class _$ACopyWithImpl<$Res>
+    implements $ACopyWith<$Res> {
+  _$ACopyWithImpl(this._self, this._then);
+
+  final A _self;
+  final $Res Function(A) _then;
+
+/// Create a copy of A
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? page = null,}) {
+  return _then(_self.copyWith(
+page: null == page ? _self.page : page // ignore: cast_nullable_to_non_nullable
+as S,
+  ));
+}
+
 }
 
 
@@ -45,96 +76,67 @@ $ACopyWith(A _, $Res Function(A) __);
 /// @nodoc
 
 
-class Init implements A {
-  const Init();
+class Select implements A {
+  const Select(this.page);
   
 
+@override final  S page;
 
-
-
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Init);
-}
-
-
-@override
-int get hashCode => runtimeType.hashCode;
-
-@override
-String toString() {
-  return 'A.init()';
-}
-
-
-}
-
-
-
-
-/// @nodoc
-mixin _$S {
-
-
+/// Create a copy of A
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$SelectCopyWith<Select> get copyWith => _$SelectCopyWithImpl<Select>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is S);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Select&&(identical(other.page, page) || other.page == page));
 }
 
 
 @override
-int get hashCode => runtimeType.hashCode;
+int get hashCode => Object.hash(runtimeType,page);
 
 @override
 String toString() {
-  return 'S()';
+  return 'A.select(page: $page)';
 }
 
 
 }
 
 /// @nodoc
-class $SCopyWith<$Res>  {
-$SCopyWith(S _, $Res Function(S) __);
+abstract mixin class $SelectCopyWith<$Res> implements $ACopyWith<$Res> {
+  factory $SelectCopyWith(Select value, $Res Function(Select) _then) = _$SelectCopyWithImpl;
+@override @useResult
+$Res call({
+ S page
+});
+
+
+
+
 }
-
-
-
 /// @nodoc
+class _$SelectCopyWithImpl<$Res>
+    implements $SelectCopyWith<$Res> {
+  _$SelectCopyWithImpl(this._self, this._then);
 
+  final Select _self;
+  final $Res Function(Select) _then;
 
-class Zero implements S {
-  const Zero();
-  
-
-
-
-
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Zero);
-}
-
-
-@override
-int get hashCode => runtimeType.hashCode;
-
-@override
-String toString() {
-  return 'S.zero()';
+/// Create a copy of A
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? page = null,}) {
+  return _then(Select(
+null == page ? _self.page : page // ignore: cast_nullable_to_non_nullable
+as S,
+  ));
 }
 
 
 }
-
-
-
 
 // dart format on

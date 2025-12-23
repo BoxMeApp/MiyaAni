@@ -3,5 +3,8 @@
   "appTitle": "MiyaAni",
   "search": "search...",
   "home": "home",
-  "settings": "settings"
+  "settings": "settings",
+  "lang": "language",
+  "en": "English",
+  "zh": "Chinese"
 }

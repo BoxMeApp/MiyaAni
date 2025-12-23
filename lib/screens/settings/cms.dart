@@ -1,3 +1,4 @@
+
 import 'package:cms/cms.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -8,15 +9,21 @@ part 'cms.freezed.dart';
   when: .new(when: false, whenOrNull: false, maybeWhen: false),
 )
 sealed class A with _$A {
-  const factory A.select(S page) = Select;
+  const factory A.init() = Init;
 }
 
-enum S { home, settings }
+@Freezed(
+  map: .new(map: false, mapOrNull: false, maybeMap: false),
+  when: .new(when: false, whenOrNull: false, maybeWhen: false),
+)
+sealed class S with _$S {
+  const factory S.zero() = Zero;
+}
 
 class M extends Cms<S, A> {
-  M() : super(.home);
+  M() : super(const Zero()) ;
   @override
   Future<S> kernel(S s, A a) async => switch ((s, a)) {
-    (_, Select a) => a.page,
+    _ => undefined(s, a),
   };
 }
