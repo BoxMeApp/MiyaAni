@@ -61,7 +61,7 @@ class M<T> extends Cms<S<T>, A> {
                     add(.fetch());
                     return S<T>.zero().copyWith(tag: s.tag);
                   }(),
-    _         =>  undefined(s, a),
+    _          =>  undefined(s, a),
     // dart format on
   };
 }

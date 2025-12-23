@@ -3,6 +3,7 @@ import 'package:flutter/widget_previews.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infix/via.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:miya_ani/widgets/ani_cover.dart';
 import 'package:subject_repository/subject_repository.dart';
 import 'dart:math' as math;
 
@@ -47,12 +48,7 @@ class AniShelfPage extends StatelessWidget {
       // view
       $AniShelfPage<Subject>(
         builder: (item) =>
-            via((Widget c) => Card(child: c)) >
-            Text(
-              item.toString(),
-              style: const TextStyle(fontSize: 24),
-              textAlign: .center,
-            ),
+            via((Widget c) => Card(child: c)) > AniCover(content: item),
         getSuggestions: (query) => RealRepo.of(context).getSuggestions(query),
       );
 }
@@ -96,9 +92,8 @@ class RealRepo {
     final offset = (pageKey - 1) * 10;
     if (query == null || query.isEmpty) {
       return _subjectRepo.getSubjects(offset, limit: 10);
-    } else {
-      return _subjectRepo.searchSubjects(query, offset, limit: 10);
     }
+    return _subjectRepo.searchSubjects(query, offset, limit: 10);
   }
 
   Future<List<String>> getSuggestions(String? query, [int topK = 10]) async {
@@ -110,7 +105,7 @@ class RealRepo {
     }
     // 简单的包含匹配
     final results = await _subjectRepo.searchSubjects(query, 0, limit: topK);
-    return results.map((e) => e.name).toList();
+    return results.map((e) => e.nameCn).toList();
   }
 }
 
@@ -153,7 +148,7 @@ class AniSearch extends StatefulWidget implements PreferredSizeWidget {
   @override
   State<AniSearch> createState() => _AniSearchState();
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => const .fromHeight(kToolbarHeight);
 }
 
 class _AniSearchState extends State<AniSearch> {

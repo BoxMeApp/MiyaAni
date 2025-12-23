@@ -13,7 +13,8 @@ class AniCover extends StatelessWidget {
     return AniCover(
       content: Subject(
         id: 500313,
-        name: '魔法少女ララベル 海が呼ぶ夏休み',
+        nameJa: '魔法少女ララベル 海が呼ぶ夏休み',
+        nameCn: "",
         images: {
           .small:
               "https://lain.bgm.tv/r/200/pic/cover/l/df/8e/500313_1s1iz.jpg",
