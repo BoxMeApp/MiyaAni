@@ -22,9 +22,10 @@ abstract class S<T> with _$S<T> {
 }
 
 class M<T> extends Cms<S<T>, A> {
-  final Future<List<T>> Function(int pageKey, String? query) _fetch;
+  final Future<List<T>> Function(int pageKey, String? query) fetch;
+  final void Function(String)? onSearch;
 
-  M(this._fetch) : super(.zero());
+  M({required this.fetch, this.onSearch}) : super(.zero());
   @override
   Future<S<T>?> kernel(S<T> s, A a) async => switch (a) {
     // dart format off
@@ -40,7 +41,7 @@ class M<T> extends Cms<S<T>, A> {
                     add(._fetch$(page)); // 真正的 fetch
                     return s.copyWith(pages: s.pages.copyWith(isLoading: true)); // 给外部观测
                   }(),
-    _Fetch$  a => _fetch(a.page, s.tag).then(
+    _Fetch$  a => fetch(a.page, s.tag).then(
                     (items) => s.copyWith(
                       pages: s.pages.copyWith(
                         isLoading: false,
