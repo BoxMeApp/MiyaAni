@@ -10,8 +10,15 @@ _Subject _$SubjectFromJson(Map<String, dynamic> json) => _Subject(
   id: (json['id'] as num).toInt(),
   nameJa: json['name'] as String,
   nameCn: json['name_cn'] as String,
-  images: (json['images'] as Map<String, dynamic>).map(
-    (k, e) => MapEntry($enumDecode(_$ImageTypeEnumMap, k), e as String),
+  images: _$recordConvert(
+    json['images'],
+    ($jsonValue) => (
+      common: $jsonValue['common'] as String,
+      grid: $jsonValue['grid'] as String,
+      large: $jsonValue['large'] as String,
+      medium: $jsonValue['medium'] as String,
+      small: $jsonValue['small'] as String,
+    ),
   ),
   url: json['url'] as String?,
   summary: json['summary'] as String?,
@@ -21,18 +28,19 @@ Map<String, dynamic> _$SubjectToJson(_Subject instance) => <String, dynamic>{
   'id': instance.id,
   'name': instance.nameJa,
   'name_cn': instance.nameCn,
-  'images': instance.images.map((k, e) => MapEntry(_$ImageTypeEnumMap[k]!, e)),
+  'images': <String, dynamic>{
+    'common': instance.images.common,
+    'grid': instance.images.grid,
+    'large': instance.images.large,
+    'medium': instance.images.medium,
+    'small': instance.images.small,
+  },
   'url': instance.url,
   'summary': instance.summary,
 };
 
-const _$ImageTypeEnumMap = {
-  ImageType.large: 'large',
-  ImageType.common: 'common',
-  ImageType.medium: 'medium',
-  ImageType.small: 'small',
-  ImageType.grid: 'grid',
-};
+$Rec _$recordConvert<$Rec>(Object? value, $Rec Function(Map) convert) =>
+    convert(value as Map<String, dynamic>);
 
 _CalendarItem _$CalendarItemFromJson(Map<String, dynamic> json) =>
     _CalendarItem(
@@ -60,6 +68,3 @@ Map<String, dynamic> _$CalendarItemToJson(_CalendarItem instance) =>
       },
       'items': instance.items,
     };
-
-$Rec _$recordConvert<$Rec>(Object? value, $Rec Function(Map) convert) =>
-    convert(value as Map<String, dynamic>);

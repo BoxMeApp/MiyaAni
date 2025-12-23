@@ -35,17 +35,6 @@ enum SubjectAnimeCategory {
   final int code;
 }
 
-/// 指示图像大小的枚举
-enum ImageType {
-  large,
-  /// 常规尺寸，介于 [large] 与 [medium] 之间
-  common,
-  medium,
-  small,
-  /// 比 [small] 更小的尺寸，常用于缩略图。
-  grid,
-}
-
 /// 条目模型
 @freezed
 abstract class Subject with _$Subject {
@@ -60,8 +49,11 @@ abstract class Subject with _$Subject {
     /// 条目名称(中文)
     @JsonKey(name: 'name_cn')
     required String nameCn,
-    /// 条目图像 URL 映射，键为 [ImageType] 枚举值，值为对应尺寸的图像 URL
-    required Map<ImageType, String> images,
+    /// 条目图像 URL，对应不同尺寸
+    /// 
+    /// 其中 [common] 为常规尺寸，介于 [large] 与 [medium] 之间，
+    /// [grid] 为比 [small] 更小的尺寸，常用于缩略图
+    required ({String large, String common, String medium, String small, String grid}) images,
     /// 条目链接地址
     String? url,
     /// 条目简介
