@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miya_ani/l10n/generated/localizations.dart';
 import 'package:miya_ani/widgets/ani_cover.dart';
-import 'package:subject_repository/subject_repository.dart';
 import 'package:infix/via.dart';
 
 import 'screens/router.dart';
+import 'scope/app/view.dart';
 
 void main() {
-  runApp(const TestApp());
+  runApp(const App());
 }
 
 class App extends StatelessWidget {
@@ -16,14 +15,7 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return via(
-          (Widget c) => MultiRepositoryProvider(
-            providers: [
-              RepositoryProvider(create: (context) => SubjectRepository()),
-            ],
-            child: c,
-          ),
-        ) >
+    return via((Widget c) => AppScope(child: c)) >
         MaterialApp.router(
           routerConfig: router,
           onGenerateTitle: (context) => AppLocalizations.of(context)!.appTitle,
