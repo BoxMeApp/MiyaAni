@@ -3,12 +3,12 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'cms.freezed.dart';
 
+enum S { home, settings }
+
 @freezed
 sealed class A with _$A {
   const factory A.select(S page) = Select;
 }
-
-enum S { home, settings }
 
 class M extends Cms<S, A> {
   M() : super(.home);

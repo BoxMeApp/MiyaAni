@@ -12,69 +12,6 @@ part of 'cms.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-mixin _$A {
-
-
-
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is A);
-}
-
-
-@override
-int get hashCode => runtimeType.hashCode;
-
-@override
-String toString() {
-  return 'A()';
-}
-
-
-}
-
-/// @nodoc
-class $ACopyWith<$Res>  {
-$ACopyWith(A _, $Res Function(A) __);
-}
-
-
-
-/// @nodoc
-
-
-class Init implements A {
-  const Init();
-  
-
-
-
-
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Init);
-}
-
-
-@override
-int get hashCode => runtimeType.hashCode;
-
-@override
-String toString() {
-  return 'A.init()';
-}
-
-
-}
-
-
-
-
-/// @nodoc
 mixin _$S {
 
 
@@ -129,6 +66,69 @@ int get hashCode => runtimeType.hashCode;
 @override
 String toString() {
   return 'S.zero()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+mixin _$A {
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is A);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'A()';
+}
+
+
+}
+
+/// @nodoc
+class $ACopyWith<$Res>  {
+$ACopyWith(A _, $Res Function(A) __);
+}
+
+
+
+/// @nodoc
+
+
+class Init implements A {
+  const Init();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Init);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'A.init()';
 }
 
 
