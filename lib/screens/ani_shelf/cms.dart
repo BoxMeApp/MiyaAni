@@ -7,17 +7,17 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'cms.freezed.dart';
 
 @freezed
+abstract class S<T> with _$S<T> {
+  factory S.zero() => S(pages: .new());
+  const factory S({required PagingState<int, T> pages, String? tag}) = _S<T>;
+}
+
+@freezed
 sealed class A with _$A {
   const factory A.fetch() = _Fetch;
   const factory A._fetch$(int page) = _Fetch$;
   const factory A.search(String query) = _Search;
   const factory A.refresh() = _Refresh;
-}
-
-@freezed
-abstract class S<T> with _$S<T> {
-  factory S.zero() => S(pages: .new());
-  const factory S({required PagingState<int, T> pages, String? tag}) = _S<T>;
 }
 
 class M<T> extends Cms<S<T>, A> {

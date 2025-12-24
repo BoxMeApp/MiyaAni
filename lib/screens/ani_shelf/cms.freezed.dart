@@ -12,6 +12,137 @@ part of 'cms.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
+mixin _$S<T> {
+
+ PagingState<int, T> get pages; String? get tag;
+/// Create a copy of S
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$SCopyWith<T, S<T>> get copyWith => _$SCopyWithImpl<T, S<T>>(this as S<T>, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is S<T>&&(identical(other.pages, pages) || other.pages == pages)&&(identical(other.tag, tag) || other.tag == tag));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,pages,tag);
+
+@override
+String toString() {
+  return 'S<$T>(pages: $pages, tag: $tag)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $SCopyWith<T,$Res>  {
+  factory $SCopyWith(S<T> value, $Res Function(S<T>) _then) = _$SCopyWithImpl;
+@useResult
+$Res call({
+ PagingState<int, T> pages, String? tag
+});
+
+
+
+
+}
+/// @nodoc
+class _$SCopyWithImpl<T,$Res>
+    implements $SCopyWith<T, $Res> {
+  _$SCopyWithImpl(this._self, this._then);
+
+  final S<T> _self;
+  final $Res Function(S<T>) _then;
+
+/// Create a copy of S
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? pages = null,Object? tag = freezed,}) {
+  return _then(_self.copyWith(
+pages: null == pages ? _self.pages : pages // ignore: cast_nullable_to_non_nullable
+as PagingState<int, T>,tag: freezed == tag ? _self.tag : tag // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
+}
+
+}
+
+
+
+/// @nodoc
+
+
+class _S<T> implements S<T> {
+  const _S({required this.pages, this.tag});
+  
+
+@override final  PagingState<int, T> pages;
+@override final  String? tag;
+
+/// Create a copy of S
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$SCopyWith<T, _S<T>> get copyWith => __$SCopyWithImpl<T, _S<T>>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _S<T>&&(identical(other.pages, pages) || other.pages == pages)&&(identical(other.tag, tag) || other.tag == tag));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,pages,tag);
+
+@override
+String toString() {
+  return 'S<$T>(pages: $pages, tag: $tag)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$SCopyWith<T,$Res> implements $SCopyWith<T, $Res> {
+  factory _$SCopyWith(_S<T> value, $Res Function(_S<T>) _then) = __$SCopyWithImpl;
+@override @useResult
+$Res call({
+ PagingState<int, T> pages, String? tag
+});
+
+
+
+
+}
+/// @nodoc
+class __$SCopyWithImpl<T,$Res>
+    implements _$SCopyWith<T, $Res> {
+  __$SCopyWithImpl(this._self, this._then);
+
+  final _S<T> _self;
+  final $Res Function(_S<T>) _then;
+
+/// Create a copy of S
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? pages = null,Object? tag = freezed,}) {
+  return _then(_S<T>(
+pages: null == pages ? _self.pages : pages // ignore: cast_nullable_to_non_nullable
+as PagingState<int, T>,tag: freezed == tag ? _self.tag : tag // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
+}
+
+
+}
+
+/// @nodoc
 mixin _$A {
 
 
@@ -237,137 +368,6 @@ String toString() {
 
 
 
-
-/// @nodoc
-mixin _$S<T> {
-
- PagingState<int, T> get pages; String? get tag;
-/// Create a copy of S
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$SCopyWith<T, S<T>> get copyWith => _$SCopyWithImpl<T, S<T>>(this as S<T>, _$identity);
-
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is S<T>&&(identical(other.pages, pages) || other.pages == pages)&&(identical(other.tag, tag) || other.tag == tag));
-}
-
-
-@override
-int get hashCode => Object.hash(runtimeType,pages,tag);
-
-@override
-String toString() {
-  return 'S<$T>(pages: $pages, tag: $tag)';
-}
-
-
-}
-
-/// @nodoc
-abstract mixin class $SCopyWith<T,$Res>  {
-  factory $SCopyWith(S<T> value, $Res Function(S<T>) _then) = _$SCopyWithImpl;
-@useResult
-$Res call({
- PagingState<int, T> pages, String? tag
-});
-
-
-
-
-}
-/// @nodoc
-class _$SCopyWithImpl<T,$Res>
-    implements $SCopyWith<T, $Res> {
-  _$SCopyWithImpl(this._self, this._then);
-
-  final S<T> _self;
-  final $Res Function(S<T>) _then;
-
-/// Create a copy of S
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? pages = null,Object? tag = freezed,}) {
-  return _then(_self.copyWith(
-pages: null == pages ? _self.pages : pages // ignore: cast_nullable_to_non_nullable
-as PagingState<int, T>,tag: freezed == tag ? _self.tag : tag // ignore: cast_nullable_to_non_nullable
-as String?,
-  ));
-}
-
-}
-
-
-
-/// @nodoc
-
-
-class _S<T> implements S<T> {
-  const _S({required this.pages, this.tag});
-  
-
-@override final  PagingState<int, T> pages;
-@override final  String? tag;
-
-/// Create a copy of S
-/// with the given fields replaced by the non-null parameter values.
-@override @JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-_$SCopyWith<T, _S<T>> get copyWith => __$SCopyWithImpl<T, _S<T>>(this, _$identity);
-
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _S<T>&&(identical(other.pages, pages) || other.pages == pages)&&(identical(other.tag, tag) || other.tag == tag));
-}
-
-
-@override
-int get hashCode => Object.hash(runtimeType,pages,tag);
-
-@override
-String toString() {
-  return 'S<$T>(pages: $pages, tag: $tag)';
-}
-
-
-}
-
-/// @nodoc
-abstract mixin class _$SCopyWith<T,$Res> implements $SCopyWith<T, $Res> {
-  factory _$SCopyWith(_S<T> value, $Res Function(_S<T>) _then) = __$SCopyWithImpl;
-@override @useResult
-$Res call({
- PagingState<int, T> pages, String? tag
-});
-
-
-
-
-}
-/// @nodoc
-class __$SCopyWithImpl<T,$Res>
-    implements _$SCopyWith<T, $Res> {
-  __$SCopyWithImpl(this._self, this._then);
-
-  final _S<T> _self;
-  final $Res Function(_S<T>) _then;
-
-/// Create a copy of S
-/// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? pages = null,Object? tag = freezed,}) {
-  return _then(_S<T>(
-pages: null == pages ? _self.pages : pages // ignore: cast_nullable_to_non_nullable
-as PagingState<int, T>,tag: freezed == tag ? _self.tag : tag // ignore: cast_nullable_to_non_nullable
-as String?,
-  ));
-}
-
-
-}
 
 /// @nodoc
 mixin _$Suggestion {
