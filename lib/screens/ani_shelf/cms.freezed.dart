@@ -12,6 +12,137 @@ part of 'cms.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
+mixin _$S<T> {
+
+ PagingState<int, T> get pages; String? get tag;
+/// Create a copy of S
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$SCopyWith<T, S<T>> get copyWith => _$SCopyWithImpl<T, S<T>>(this as S<T>, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is S<T>&&(identical(other.pages, pages) || other.pages == pages)&&(identical(other.tag, tag) || other.tag == tag));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,pages,tag);
+
+@override
+String toString() {
+  return 'S<$T>(pages: $pages, tag: $tag)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $SCopyWith<T,$Res>  {
+  factory $SCopyWith(S<T> value, $Res Function(S<T>) _then) = _$SCopyWithImpl;
+@useResult
+$Res call({
+ PagingState<int, T> pages, String? tag
+});
+
+
+
+
+}
+/// @nodoc
+class _$SCopyWithImpl<T,$Res>
+    implements $SCopyWith<T, $Res> {
+  _$SCopyWithImpl(this._self, this._then);
+
+  final S<T> _self;
+  final $Res Function(S<T>) _then;
+
+/// Create a copy of S
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? pages = null,Object? tag = freezed,}) {
+  return _then(_self.copyWith(
+pages: null == pages ? _self.pages : pages // ignore: cast_nullable_to_non_nullable
+as PagingState<int, T>,tag: freezed == tag ? _self.tag : tag // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
+}
+
+}
+
+
+
+/// @nodoc
+
+
+class _S<T> implements S<T> {
+  const _S({required this.pages, this.tag});
+  
+
+@override final  PagingState<int, T> pages;
+@override final  String? tag;
+
+/// Create a copy of S
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$SCopyWith<T, _S<T>> get copyWith => __$SCopyWithImpl<T, _S<T>>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _S<T>&&(identical(other.pages, pages) || other.pages == pages)&&(identical(other.tag, tag) || other.tag == tag));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,pages,tag);
+
+@override
+String toString() {
+  return 'S<$T>(pages: $pages, tag: $tag)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$SCopyWith<T,$Res> implements $SCopyWith<T, $Res> {
+  factory _$SCopyWith(_S<T> value, $Res Function(_S<T>) _then) = __$SCopyWithImpl;
+@override @useResult
+$Res call({
+ PagingState<int, T> pages, String? tag
+});
+
+
+
+
+}
+/// @nodoc
+class __$SCopyWithImpl<T,$Res>
+    implements _$SCopyWith<T, $Res> {
+  __$SCopyWithImpl(this._self, this._then);
+
+  final _S<T> _self;
+  final $Res Function(_S<T>) _then;
+
+/// Create a copy of S
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? pages = null,Object? tag = freezed,}) {
+  return _then(_S<T>(
+pages: null == pages ? _self.pages : pages // ignore: cast_nullable_to_non_nullable
+as PagingState<int, T>,tag: freezed == tag ? _self.tag : tag // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
+}
+
+
+}
+
+/// @nodoc
 mixin _$A {
 
 
@@ -239,40 +370,40 @@ String toString() {
 
 
 /// @nodoc
-mixin _$S<T> {
+mixin _$Suggestion {
 
- PagingState<int, T> get pages; String? get tag;
-/// Create a copy of S
+ String get value;
+/// Create a copy of Suggestion
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$SCopyWith<T, S<T>> get copyWith => _$SCopyWithImpl<T, S<T>>(this as S<T>, _$identity);
+$SuggestionCopyWith<Suggestion> get copyWith => _$SuggestionCopyWithImpl<Suggestion>(this as Suggestion, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is S<T>&&(identical(other.pages, pages) || other.pages == pages)&&(identical(other.tag, tag) || other.tag == tag));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Suggestion&&(identical(other.value, value) || other.value == value));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,pages,tag);
+int get hashCode => Object.hash(runtimeType,value);
 
 @override
 String toString() {
-  return 'S<$T>(pages: $pages, tag: $tag)';
+  return 'Suggestion(value: $value)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $SCopyWith<T,$Res>  {
-  factory $SCopyWith(S<T> value, $Res Function(S<T>) _then) = _$SCopyWithImpl;
+abstract mixin class $SuggestionCopyWith<$Res>  {
+  factory $SuggestionCopyWith(Suggestion value, $Res Function(Suggestion) _then) = _$SuggestionCopyWithImpl;
 @useResult
 $Res call({
- PagingState<int, T> pages, String? tag
+ String value
 });
 
 
@@ -280,197 +411,66 @@ $Res call({
 
 }
 /// @nodoc
-class _$SCopyWithImpl<T,$Res>
-    implements $SCopyWith<T, $Res> {
-  _$SCopyWithImpl(this._self, this._then);
+class _$SuggestionCopyWithImpl<$Res>
+    implements $SuggestionCopyWith<$Res> {
+  _$SuggestionCopyWithImpl(this._self, this._then);
 
-  final S<T> _self;
-  final $Res Function(S<T>) _then;
+  final Suggestion _self;
+  final $Res Function(Suggestion) _then;
 
-/// Create a copy of S
+/// Create a copy of Suggestion
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? pages = null,Object? tag = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? value = null,}) {
   return _then(_self.copyWith(
-pages: null == pages ? _self.pages : pages // ignore: cast_nullable_to_non_nullable
-as PagingState<int, T>,tag: freezed == tag ? _self.tag : tag // ignore: cast_nullable_to_non_nullable
-as String?,
+value: null == value ? _self.value : value // ignore: cast_nullable_to_non_nullable
+as String,
   ));
 }
 
 }
 
 
-/// Adds pattern-matching-related methods to [S].
-extension SPatterns<T> on S<T> {
-/// A variant of `map` that fallback to returning `orElse`.
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case final Subclass value:
-///     return ...;
-///   case _:
-///     return orElse();
-/// }
-/// ```
-
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _S<T> value)?  $default,{required TResult orElse(),}){
-final _that = this;
-switch (_that) {
-case _S() when $default != null:
-return $default(_that);case _:
-  return orElse();
-
-}
-}
-/// A `switch`-like method, using callbacks.
-///
-/// Callbacks receives the raw object, upcasted.
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case final Subclass value:
-///     return ...;
-///   case final Subclass2 value:
-///     return ...;
-/// }
-/// ```
-
-@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _S<T> value)  $default,){
-final _that = this;
-switch (_that) {
-case _S():
-return $default(_that);case _:
-  throw StateError('Unexpected subclass');
-
-}
-}
-/// A variant of `map` that fallback to returning `null`.
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case final Subclass value:
-///     return ...;
-///   case _:
-///     return null;
-/// }
-/// ```
-
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _S<T> value)?  $default,){
-final _that = this;
-switch (_that) {
-case _S() when $default != null:
-return $default(_that);case _:
-  return null;
-
-}
-}
-/// A variant of `when` that fallback to an `orElse` callback.
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case Subclass(:final field):
-///     return ...;
-///   case _:
-///     return orElse();
-/// }
-/// ```
-
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( PagingState<int, T> pages,  String? tag)?  $default,{required TResult orElse(),}) {final _that = this;
-switch (_that) {
-case _S() when $default != null:
-return $default(_that.pages,_that.tag);case _:
-  return orElse();
-
-}
-}
-/// A `switch`-like method, using callbacks.
-///
-/// As opposed to `map`, this offers destructuring.
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case Subclass(:final field):
-///     return ...;
-///   case Subclass2(:final field2):
-///     return ...;
-/// }
-/// ```
-
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( PagingState<int, T> pages,  String? tag)  $default,) {final _that = this;
-switch (_that) {
-case _S():
-return $default(_that.pages,_that.tag);case _:
-  throw StateError('Unexpected subclass');
-
-}
-}
-/// A variant of `when` that fallback to returning `null`
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case Subclass(:final field):
-///     return ...;
-///   case _:
-///     return null;
-/// }
-/// ```
-
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( PagingState<int, T> pages,  String? tag)?  $default,) {final _that = this;
-switch (_that) {
-case _S() when $default != null:
-return $default(_that.pages,_that.tag);case _:
-  return null;
-
-}
-}
-
-}
 
 /// @nodoc
 
 
-class _S<T> implements S<T> {
-  const _S({required this.pages, this.tag});
+class HistorySuggestion implements Suggestion {
+  const HistorySuggestion(this.value);
   
 
-@override final  PagingState<int, T> pages;
-@override final  String? tag;
+@override final  String value;
 
-/// Create a copy of S
+/// Create a copy of Suggestion
 /// with the given fields replaced by the non-null parameter values.
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$SCopyWith<T, _S<T>> get copyWith => __$SCopyWithImpl<T, _S<T>>(this, _$identity);
+$HistorySuggestionCopyWith<HistorySuggestion> get copyWith => _$HistorySuggestionCopyWithImpl<HistorySuggestion>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _S<T>&&(identical(other.pages, pages) || other.pages == pages)&&(identical(other.tag, tag) || other.tag == tag));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is HistorySuggestion&&(identical(other.value, value) || other.value == value));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,pages,tag);
+int get hashCode => Object.hash(runtimeType,value);
 
 @override
 String toString() {
-  return 'S<$T>(pages: $pages, tag: $tag)';
+  return 'Suggestion.history(value: $value)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$SCopyWith<T,$Res> implements $SCopyWith<T, $Res> {
-  factory _$SCopyWith(_S<T> value, $Res Function(_S<T>) _then) = __$SCopyWithImpl;
+abstract mixin class $HistorySuggestionCopyWith<$Res> implements $SuggestionCopyWith<$Res> {
+  factory $HistorySuggestionCopyWith(HistorySuggestion value, $Res Function(HistorySuggestion) _then) = _$HistorySuggestionCopyWithImpl;
 @override @useResult
 $Res call({
- PagingState<int, T> pages, String? tag
+ String value
 });
 
 
@@ -478,19 +478,86 @@ $Res call({
 
 }
 /// @nodoc
-class __$SCopyWithImpl<T,$Res>
-    implements _$SCopyWith<T, $Res> {
-  __$SCopyWithImpl(this._self, this._then);
+class _$HistorySuggestionCopyWithImpl<$Res>
+    implements $HistorySuggestionCopyWith<$Res> {
+  _$HistorySuggestionCopyWithImpl(this._self, this._then);
 
-  final _S<T> _self;
-  final $Res Function(_S<T>) _then;
+  final HistorySuggestion _self;
+  final $Res Function(HistorySuggestion) _then;
 
-/// Create a copy of S
+/// Create a copy of Suggestion
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? pages = null,Object? tag = freezed,}) {
-  return _then(_S<T>(
-pages: null == pages ? _self.pages : pages // ignore: cast_nullable_to_non_nullable
-as PagingState<int, T>,tag: freezed == tag ? _self.tag : tag // ignore: cast_nullable_to_non_nullable
+@override @pragma('vm:prefer-inline') $Res call({Object? value = null,}) {
+  return _then(HistorySuggestion(
+null == value ? _self.value : value // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class DatabaseSuggestion implements Suggestion {
+  const DatabaseSuggestion(this.value, {this.icon});
+  
+
+@override final  String value;
+ final  String? icon;
+
+/// Create a copy of Suggestion
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$DatabaseSuggestionCopyWith<DatabaseSuggestion> get copyWith => _$DatabaseSuggestionCopyWithImpl<DatabaseSuggestion>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DatabaseSuggestion&&(identical(other.value, value) || other.value == value)&&(identical(other.icon, icon) || other.icon == icon));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,value,icon);
+
+@override
+String toString() {
+  return 'Suggestion.database(value: $value, icon: $icon)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $DatabaseSuggestionCopyWith<$Res> implements $SuggestionCopyWith<$Res> {
+  factory $DatabaseSuggestionCopyWith(DatabaseSuggestion value, $Res Function(DatabaseSuggestion) _then) = _$DatabaseSuggestionCopyWithImpl;
+@override @useResult
+$Res call({
+ String value, String? icon
+});
+
+
+
+
+}
+/// @nodoc
+class _$DatabaseSuggestionCopyWithImpl<$Res>
+    implements $DatabaseSuggestionCopyWith<$Res> {
+  _$DatabaseSuggestionCopyWithImpl(this._self, this._then);
+
+  final DatabaseSuggestion _self;
+  final $Res Function(DatabaseSuggestion) _then;
+
+/// Create a copy of Suggestion
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? value = null,Object? icon = freezed,}) {
+  return _then(DatabaseSuggestion(
+null == value ? _self.value : value // ignore: cast_nullable_to_non_nullable
+as String,icon: freezed == icon ? _self.icon : icon // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }

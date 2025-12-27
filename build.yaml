@@ -1,0 +1,11 @@
+targets:
+  $default:
+    builders:
+      freezed:
+        options:
+          map: false
+          mapOrNull: false
+          maybeMap: false
+          when: false
+          whenOrNull: false
+          maybeWhen: false

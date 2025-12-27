@@ -1,0 +1,11 @@
+{
+  "@@locale": "en",
+  "appTitle": "MiyaAni",
+  "search": "search...",
+  "home": "home",
+  "settings": "settings",
+  "lang": "language",
+  "systemDefault": "System default",
+  "en": "English",
+  "zh": "Chinese"
+}

@@ -79,6 +79,17 @@ via((Widget c) => Center(child: c))
 > Text('Hello')
 ```
 
+### intl
+
+```bash
+flutter gen-l10n
+# or
+flutter pub get
+```
+
+[more](https://docs.flutter.dev/ui/internationalization)
+
+
 ### tools
 
 - [Flutter Widget Previewer](https://docs.flutter.dev/tools/widget-previewer): 方便预览 widget

@@ -1,24 +1,53 @@
 import 'package:flutter/material.dart';
-import 'package:miya_ani/screens/ani_shelf/view.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:miya_ani/l10n/generated/localizations.dart';
+import 'package:miya_ani/repositories/local_prefs.dart';
+import 'package:miya_ani/widgets/ani_cover.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+import 'screens/router.dart';
+import 'scope/app/view.dart';
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+void main() => runApp(AppScope(child: const App()));
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(home: const HomePage());
-  }
-}
-
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class App extends StatelessWidget {
+  const App({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Center(child: AniShelfPage.test()));
+    final prefs = context.read<LocalPrefs>();
+    return StreamBuilder(
+      stream: prefs.locale$,
+      initialData: prefs.locale,
+      builder: (context, snapshot) => MaterialApp.router(
+        theme: _buildTheme(Brightness.light),
+        locale: snapshot.data,
+        routerConfig: router,
+        onGenerateTitle: (context) => AppLocalizations.of(context)!.appTitle,
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+      ),
+    );
   }
+}
+
+class TestApp extends StatelessWidget {
+  const TestApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(title: const Text('Test AniCover')),
+        body: Center(child: AniCover.test()),
+      ),
+    );
+  }
+}
+
+ThemeData _buildTheme(Brightness brightness) {
+  final baseTheme = ThemeData(brightness: brightness);
+  return baseTheme.copyWith(
+    textTheme: GoogleFonts.notoSansScTextTheme(baseTheme.textTheme)
+  );
 }
