@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miya_ani/l10n/generated/localizations.dart';
 import 'package:miya_ani/repositories/local_prefs.dart';
-import 'package:miya_ani/widgets/ani_cover.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'screens/router.dart';
@@ -39,7 +38,7 @@ class TestApp extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(title: const Text('Test AniCover')),
-        body: Center(child: AniCover.test()),
+        body: Center(child: Center()),
       ),
     );
   }
