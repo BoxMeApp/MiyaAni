@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:infix/via.dart';
+import 'package:flutter_infix/flutter_infix.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:miya_ani/l10n/generated/localizations.dart';
 import 'package:subject_repository/subject_repository.dart';
@@ -21,8 +21,8 @@ class AniShelfPage extends StatelessWidget {
   static Widget $coloredBoxShelf() {
     final repo = FakeRepo();
     // controller
-    return via(
-          (Widget c) => BlocProvider(
+    return wrap(
+          (c) => BlocProvider(
             create: (context) => M<int>(fetch: repo.fakeFetch),
             child: c,
           ),
@@ -30,7 +30,7 @@ class AniShelfPage extends StatelessWidget {
         // view
         $AniShelfPage<int>(
           builder: (item) =>
-              via((Widget c) => Card(child: c)) >
+              wrap((c) => Card(child: c)) >
               Text(
                 item.toString(),
                 style: const TextStyle(fontSize: 24),
@@ -49,8 +49,8 @@ class AniShelfPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) =>
-      via(
-        (Widget c) => BlocProvider(
+      wrap(
+        (c) => BlocProvider(
           create: (context) => M<Subject>(
             fetch: RealRepo.of(context).fetch,
             onSearch: (v) => context.read<LocalPrefs>().searchHistory.add(v),
@@ -155,14 +155,14 @@ class $AniShelfPage<T> extends StatelessWidget {
           onSubmit: (v) => context.read<M<T>>().add(.search(v)),
         ),
         body:
-            via(
-              (Widget c) => RefreshIndicator(
+            wrap(
+              (c) => RefreshIndicator(
                 onRefresh: () async =>
                     context.read<M<T>>().add(const .refresh()),
                 child: c,
               ),
-            ).via((List<Widget> c) => CustomScrollView(slivers: c)) >
-            [AniShelfViewer<T>(builder: builder)],
+            ) >
+            CustomScrollView(slivers: [AniShelfViewer<T>(builder: builder)]),
       );
 }
 

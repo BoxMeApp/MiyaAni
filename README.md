@@ -73,9 +73,9 @@ Center(
 ),
 
 // can be written as
-via((Widget c) => Center(child: c))
-.via((c) => Padding(padding: .all(16), child: c,))
-.via((c) => Card(elevation: 4, child: c,))
+wrap((c) => Center(child: c))
+.wrap((c) => Padding(padding: .all(16), child: c,))
+.wrap((c) => Card(elevation: 4, child: c,))
 > Text('Hello')
 ```
 

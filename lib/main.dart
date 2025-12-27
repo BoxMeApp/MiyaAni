@@ -20,7 +20,7 @@ class App extends StatelessWidget {
       stream: prefs.locale$,
       initialData: prefs.locale,
       builder: (context, snapshot) => MaterialApp.router(
-        theme: _buildTheme(Brightness.light),
+        theme: _buildTheme(.light),
         locale: snapshot.data,
         routerConfig: router,
         onGenerateTitle: (context) => AppLocalizations.of(context)!.appTitle,
@@ -48,6 +48,6 @@ class TestApp extends StatelessWidget {
 ThemeData _buildTheme(Brightness brightness) {
   final baseTheme = ThemeData(brightness: brightness);
   return baseTheme.copyWith(
-    textTheme: GoogleFonts.notoSansScTextTheme(baseTheme.textTheme)
+    textTheme: GoogleFonts.notoSansScTextTheme(baseTheme.textTheme),
   );
 }

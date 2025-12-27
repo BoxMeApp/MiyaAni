@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:infix/via.dart';
+import 'package:flutter_infix/flutter_infix.dart';
 
 import 'home/view.dart';
 import 'ani_shelf/view.dart';

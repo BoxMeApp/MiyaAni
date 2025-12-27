@@ -39,7 +39,7 @@ class AniCover extends StatelessWidget {
     assert(debugCheckHasMaterial(context));
 
     return Card(
-      clipBehavior: Clip.antiAlias,
+      clipBehavior: .antiAlias,
       child: InkWell(
         // mouseCursor: SystemMouseCursors.click,
         onTap: () => Navigator.of(context).push(
@@ -160,6 +160,8 @@ Widget $aniCoverLongLabelDemo() {
   const longName = "这是一个非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常长的标题";
 
   return Center(
-    child: SizedBox(child: AniCover(content: _demoSubject.copyWith(nameCn: longName))),
+    child: SizedBox(
+      child: AniCover(content: _demoSubject.copyWith(nameCn: longName)),
+    ),
   );
 }

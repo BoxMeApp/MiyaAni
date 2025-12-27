@@ -30,11 +30,9 @@ class DetailsPage extends StatelessWidget {
           children: [
             ConstrainedBox(
               constraints: BoxConstraints.loose(Size.fromHeight(400)),
-              child: Expanded(
-                child: CachedNetworkImage(
-                  imageUrl: subject.images.common,
-                  fit: .cover,
-                ),
+              child: CachedNetworkImage(
+                imageUrl: subject.images.common,
+                fit: .cover,
               ),
             ),
             Column(
@@ -54,13 +52,8 @@ class DetailsPage extends StatelessWidget {
                 crossAxisAlignment: .start,
                 spacing: 8,
                 children: [
-                  Text(
-                    "Summary",
-                    style: headlineStyle,
-                  ),
-                  Text(
-                    subject.summary!,
-                  ),
+                  Text("Summary", style: headlineStyle),
+                  Text(subject.summary!),
                 ],
               ),
           ],

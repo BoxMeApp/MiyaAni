@@ -8,23 +8,22 @@ part 'cms.freezed.dart';
 
 @freezed
 abstract class S<T> with _$S<T> {
-  factory S.zero() => S(pages: .new());
   const factory S({required PagingState<int, T> pages, String? tag}) = _S<T>;
 }
 
 @freezed
 sealed class A with _$A {
   const factory A.fetch() = _Fetch;
-  const factory A._fetch$(int page) = _Fetch$;
   const factory A.search(String query) = _Search;
   const factory A.refresh() = _Refresh;
+  const factory A._$1(int page) = _Fetch$;
 }
 
 class M<T> extends Cms<S<T>, A> {
   final Future<List<T>> Function(int pageKey, String? query) fetch;
   final void Function(String)? onSearch;
 
-  M({required this.fetch, this.onSearch}) : super(.zero());
+  M({required this.fetch, this.onSearch}) : super(S(pages: .new()));
   // dart format off
   @override
   Future<S<T>?> kernel(S<T> s, A a) async => switch (a) {
@@ -37,7 +36,7 @@ class M<T> extends Cms<S<T>, A> {
                     if (page == null) {
                       return s.copyWith(pages: s.pages.copyWith(hasNextPage: false));
                     }
-                    add(._fetch$(page));
+                    add(_Fetch$(page));
                     return s.copyWith(pages: s.pages.copyWith(isLoading: true));
                   }(),
     _Fetch$  a => fetch(a.page, s.tag).then(
@@ -54,13 +53,13 @@ class M<T> extends Cms<S<T>, A> {
                     ),
                   ),
     _Search  a => () {
-                    add(.fetch());
+                    add(_Fetch());
                     onSearch?.call(a.query);
-                    return S<T>.zero().copyWith(tag: a.query);
+                    return S<T>(pages: .new(), tag: a.query);
                   }(),
     _Refresh _ => () {
-                    add(.fetch());
-                    return S<T>.zero().copyWith(tag: s.tag);
+                    add(_Fetch());
+                    return S<T>(pages: .new(), tag: s.tag);
                   }(),
   };
   // dart format on
