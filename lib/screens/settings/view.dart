@@ -12,19 +12,41 @@ class SettingsPage extends StatelessWidget {
     final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(title: const Text('Settings')),
-      body: Center(
-        child: StreamBuilder(
-          stream: prefs.locale$,
-          initialData: prefs.locale,
-          builder: (context, snapshot) => DropdownButton<Locale?>(
-            value: snapshot.data,
-            onChanged: (locale) => prefs.locale = locale,
-            items: [
-              .new(value: null, child: Text(l10n.systemDefault)),
-              .new(value: Locale('en'), child: Text(l10n.en)),
-              .new(value: Locale('zh'), child: Text(l10n.zh)),
-            ],
-          ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: .start,
+          children: [
+            Text(
+              l10n.lang,
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+            StreamBuilder(
+              stream: prefs.locale$,
+              builder: (context, snapshot) {
+                return RadioGroup<Locale?>(
+                  onChanged: (locale) => prefs.locale = locale,
+                  groupValue: prefs.locale,
+                  child: Column(
+                    children: [
+                      RadioListTile<Locale?>(
+                        value: null,
+                        title: Text(l10n.systemDefault),
+                      ),
+                      RadioListTile<Locale?>(
+                        value: Locale('en'),
+                        title: Text(l10n.en),
+                      ),
+                      RadioListTile<Locale?>(
+                        value: Locale('zh'),
+                        title: Text(l10n.zh),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+          ],
         ),
       ),
     );

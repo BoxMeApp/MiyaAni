@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miya_ani/l10n/generated/localizations.dart';
 import 'package:miya_ani/repositories/local_prefs.dart';
 import 'package:miya_ani/widgets/ani_cover.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'screens/router.dart';
 import 'scope/app/view.dart';
@@ -19,6 +20,7 @@ class App extends StatelessWidget {
       stream: prefs.locale$,
       initialData: prefs.locale,
       builder: (context, snapshot) => MaterialApp.router(
+        theme: _buildTheme(Brightness.light),
         locale: snapshot.data,
         routerConfig: router,
         onGenerateTitle: (context) => AppLocalizations.of(context)!.appTitle,
@@ -41,4 +43,11 @@ class TestApp extends StatelessWidget {
       ),
     );
   }
+}
+
+ThemeData _buildTheme(Brightness brightness) {
+  final baseTheme = ThemeData(brightness: brightness);
+  return baseTheme.copyWith(
+    textTheme: GoogleFonts.notoSansScTextTheme(baseTheme.textTheme)
+  );
 }
