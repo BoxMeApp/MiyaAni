@@ -4,6 +4,7 @@ import 'package:miya_ani/screens/details/view.dart';
 import 'package:subject_repository/subject_repository.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
+/// 动画封面组件
 class AniCover extends StatelessWidget {
   final Subject content;
 
@@ -131,14 +132,14 @@ final _demoSubject = Subject(
 );
 
 @Preview(name: "AniCover Demo", size: Size(160, 260))
-Widget aniCoverDemo() {
+Widget $aniCoverDemo() {
   return Center(
     child: SizedBox(child: AniCover(content: _demoSubject)),
   );
 }
 
 @Preview(name: "AniCover with Invalid Url", size: Size(160, 260))
-Widget aniCoverErrorDemo() {
+Widget $aniCoverErrorDemo() {
   const invalidImages = (
     small: "https://error.url/no_image.jpg",
     grid: "https://error.url/no_image.jpg",
@@ -155,7 +156,7 @@ Widget aniCoverErrorDemo() {
 }
 
 @Preview(name: "AniCover with Long Label", size: Size(160, 260))
-Widget aniCoverLongLabelDemo() {
+Widget $aniCoverLongLabelDemo() {
   const longName = "这是一个非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常长的标题";
 
   return Center(

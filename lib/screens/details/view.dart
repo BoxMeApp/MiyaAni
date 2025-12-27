@@ -30,15 +30,11 @@ class DetailsPage extends StatelessWidget {
           children: [
             ConstrainedBox(
               constraints: BoxConstraints.loose(Size.fromHeight(400)),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: CachedNetworkImage(
-                      imageUrl: subject.images.large,
-                      fit: .cover,
-                    ),
-                  ),
-                ],
+              child: Expanded(
+                child: CachedNetworkImage(
+                  imageUrl: subject.images.common,
+                  fit: .cover,
+                ),
               ),
             ),
             Column(
@@ -75,7 +71,7 @@ class DetailsPage extends StatelessWidget {
 }
 
 @Preview(name: 'Details Page Demo', size: Size(800, 600))
-Widget detailsPageDemo() {
+Widget $detailsPageDemo() {
   final subjectDemo = Subject(
     id: 500313,
     nameJa: '魔法少女ララベル 海が呼ぶ夏休み',
